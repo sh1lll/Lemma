@@ -1,0 +1,14 @@
+A1gebra 2 Quiz   Narne: ______
+Per1od: ___
+
+l. Solve x^2 = 49.
+A. 7    B. -7    C. 7 or -7    D. 49
+2. Factor x2 - 9.
+A. (x - 3)(x + 3)    B. (x - 9)(x + 1)    C. (x - 3)^2    D. x(x - 9)
+3, Evaluate 2(5) + 3.
+A. 10   B. 13   C. 16   D. 7
+~ -- ' . ,, ;
+4. What is 10% of 50?
+A. 5   B. 10   C. 0.5   D. 50
+
+Answer Key: 1. C 2. A 3. B 4. A

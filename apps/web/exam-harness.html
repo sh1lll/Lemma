@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Exam room harness (dev only)</title>
+  </head>
+  <body>
+    <!-- Dev-only harness for src/exam. Not part of the production build (not a rollup input).
+         ?room=digital-adaptive|digital-linear|paper|free-response starts that sample; ?view=hub opens the exam center. -->
+    <nav id="bar" style="display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 16px; font: 14px system-ui">
+      <a href="?view=hub">Exam center</a>
+      <a href="?room=digital-adaptive">Digital adaptive</a>
+      <a href="?room=digital-linear">Digital linear</a>
+      <a href="?room=paper">Paper</a>
+      <a href="?room=free-response">Free response</a>
+      <button id="theme" type="button">Toggle theme</button>
+      <button id="reset" type="button">Clear saved data</button>
+      <span id="toast" role="status" aria-live="polite"></span>
+    </nav>
+    <main id="app"></main>
+    <script type="module" src="/src/exam/harness.ts"></script>
+  </body>
+</html>

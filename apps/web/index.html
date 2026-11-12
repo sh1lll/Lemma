@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Lemma</title>
+    <meta name="description" content="Instant voice-first calculator. Speak, type or paste any calculation." />
+    <meta name="theme-color" content="#0e0f11" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f3ee" media="(prefers-color-scheme: light)" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header class="bar">
+        <div class="brand" role="heading" aria-level="1" aria-label="Lemma">
+          <!-- The mark (a slightly cursive L, and ∴ "therefore") and the name. Same drawing as icon.svg. -->
+          <svg class="brand-mark" viewBox="30 25 246 70" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="9" d="M36 32c3-3 6-2 6 3 0 16-1 33 0 46 0 7 4 9 10 9 10 0 20-1 30-4"/><path stroke-width="7" d="M95 75h24c0-9-5-16-12.5-16S93 66 93 74.5 99 90 107.5 90c5 0 9-2 12-5M131 89V71c0-8 4.5-12 10-12s10 4 10 12v18M151 71c0-8 4.5-12 10-12s10 4 10 12v13c0 4 2 6 5 6M186 89V71c0-8 4.5-12 10-12s10 4 10 12v18M206 71c0-8 4.5-12 10-12s10 4 10 12v13c0 4 2 6 5 6M265 67c-2-5-6-8-11.5-8C246 59 240 66 240 74.5S246 90 253 90c6.5 0 12-5 12-13M265 60v23c0 5 2 7 6 7"/></g><circle class="brand-dot" cx="76" cy="50" r="8"/><circle cx="68.5" cy="62.5" r="2.2" fill="currentColor"/><circle cx="83.5" cy="62.5" r="2.2" fill="currentColor"/></svg>
+        </div>
+        <div class="bar-actions">
+          <button class="pill" id="angle" type="button" aria-label="Angle mode" title="Angle mode (degrees / radians)">DEG</button>
+          <button class="study-btn" id="open-study" type="button" aria-label="Tools" title="Tools: whiteboard, geometry, practice and more (⌘/Ctrl+K)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/></svg>
+            <span>Tools</span>
+          </button>
+          <button class="icon-btn" id="open-notebook" type="button" aria-label="Notebooks" title="Notebooks (⌘/Ctrl+Shift+N)" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v18M12 8h4M12 12h4"/></svg>
+          </button>
+          <button class="icon-btn" id="open-tips" type="button" aria-label="Tips: what you can say or type" title="Tips">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/></svg>
+          </button>
+          <button class="icon-btn" id="open-settings" type="button" aria-label="Settings" title="Settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <div class="modes" id="modes" role="radiogroup" aria-label="Calculator mode">
+          <button type="button" role="radio" data-mode="basic" aria-checked="true" title="Basic (Alt+1)">Basic</button>
+          <button type="button" role="radio" data-mode="scientific" aria-checked="false" title="Scientific (Alt+2)">Scientific</button>
+          <button type="button" role="radio" data-mode="graphing" aria-checked="false" title="Graphing (Alt+3)">Graphing</button>
+          <button type="button" role="radio" data-mode="matrix" aria-checked="false" title="Matrix (Alt+4)">Matrix</button>
+        </div>
+
+        <section class="result" aria-live="polite" aria-atomic="true">
+          <div class="expr" id="expr">&nbsp;</div>
+          <div class="value-row">
+            <output class="value" id="value">0</output>
+            <button class="icon-btn ghost" id="copy" type="button" aria-label="Copy result" title="Copy result (⌘/Ctrl+Shift+C)">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+            </button>
+          </div>
+          <div class="lines" id="lines"></div>
+          <div class="detail" id="detail"></div>
+          <div class="meta" id="meta"></div>
+          <div class="alts" id="alts"></div>
+          <div class="graph-slot" id="graph-slot"></div>
+        </section>
+
+        <section class="tape" id="tape" aria-label="Running calculation" aria-live="polite" hidden>
+          <div class="tape-head"><span class="tape-dot" aria-hidden="true"></span><span id="tape-status">Listening</span><button class="link" id="tape-clear" type="button">Start over</button></div>
+          <ol id="tape-steps"></ol>
+        </section>
+
+        <form class="ask" id="ask" autocomplete="off">
+          <input
+            id="input"
+            type="text"
+            inputmode="text"
+            enterkeyhint="go"
+            spellcheck="false"
+            autocapitalize="off"
+            autocorrect="off"
+            placeholder="Ask anything…"
+            aria-label="Calculation"
+          />
+          <input type="file" id="image-file" accept="image/*" capture="environment" hidden />
+          <button class="icon-btn ask-btn" id="attach" type="button" aria-label="Add a photo of a problem" title="Photo, screenshot or handwriting of a problem" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+          </button>
+          <button class="icon-btn ask-btn" id="assistant-toggle" type="button" aria-pressed="false" aria-label="Assistant mode" title="Assistant mode: ask in plain language (AI)" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v10H10l-4 4v-4H5z"/></svg>
+          </button>
+          <button class="icon-btn ask-btn loop" id="loop" type="button" aria-pressed="false" aria-label="Keep listening" title="Keep listening: chain calculations by voice until you stop">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8a4 4 0 1 0 0 8c2.5 0 4-2 5-4s2.5-4 5-4a4 4 0 1 1 0 8c-2.5 0-4-2-5-4s-2.5-4-5-4z"/></svg>
+          </button>
+          <button class="mic" id="mic" type="button" aria-label="Start voice input" aria-pressed="false" title="Voice input (Alt+M)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+            <span class="ring" aria-hidden="true"></span>
+          </button>
+        </form>
+        <div class="overlay-hint" aria-hidden="true"><span><kbd>↵</kbd> save</span><span><kbd>⌘/Ctrl ↵</kbd> copy &amp; close</span><span><kbd>esc</kbd> close</span><button class="link" id="open-main" type="button">Open app</button></div>
+
+        <p class="hint" id="hint" role="status" hidden></p>
+
+        <div class="keypad" id="keypad" hidden></div>
+        <div class="toolrow">
+          <button class="link" id="toggle-vars" type="button" aria-expanded="false" aria-controls="var-editor">Variables</button>
+          <button class="link" id="toggle-keypad" type="button">Keypad</button>
+          <button class="sym-open" id="open-symbols" type="button" aria-label="Symbols" title="Symbols (Alt+S)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg><span>Symbols</span>
+          </button>
+        </div>
+        <form class="var-editor" id="var-editor" hidden>
+          <input id="var-name" aria-label="Variable name" placeholder="name" autocomplete="off" spellcheck="false" size="6" />
+          <span aria-hidden="true">=</span>
+          <input id="var-value" aria-label="Value" placeholder="value" autocomplete="off" spellcheck="false" />
+          <button type="submit" class="nb-btn">Save</button>
+        </form>
+
+        <section class="convo" id="convo" aria-label="Assistant conversation" aria-live="polite" hidden>
+          <div class="convo-head">
+            <h2>Assistant</h2>
+            <button class="link" id="convo-clear" type="button">New conversation</button>
+          </div>
+          <div id="convo-log"></div>
+        </section>
+
+        <section class="timers" id="timers" aria-label="Timers" hidden></section>
+
+        <section class="history" id="pinned-section" aria-label="Pinned" hidden>
+          <div class="history-head"><h2>Pinned</h2></div>
+          <ol id="pinned"></ol>
+        </section>
+
+        <section class="formulas" id="formulas" aria-label="Your variables and formulas" hidden></section>
+
+        <section class="history" aria-label="History">
+          <div class="history-head">
+            <h2>
+              <button class="section-toggle" id="recent-toggle" type="button" aria-expanded="true" aria-controls="recent-body">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>Recent
+              </button>
+            </h2>
+            <button class="link" id="clear-history" type="button">Clear</button>
+          </div>
+          <div id="recent-body" class="fold">
+            <div>
+              <ol id="history"></ol>
+              <div class="examples" id="examples"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="study" class="drawer" aria-labelledby="study-title">
+      <form method="dialog" class="sheet">
+        <div class="sheet-head">
+          <h2 id="study-title">Tools</h2>
+          <button class="icon-btn" value="close" aria-label="Close tools">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <label class="tool-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg><input id="tool-search" type="search" placeholder="Find a tool" aria-label="Find a tool" autocomplete="off" spellcheck="false" enterkeyhint="go" /></label>
+        <nav class="tool-list" id="tool-list" aria-label="Tools"></nav>
+      </form>
+    </dialog>
+
+    <dialog id="tool" class="tool-sheet" aria-labelledby="tool-title">
+      <div class="sheet">
+        <div class="sheet-head">
+          <button class="icon-btn" id="tool-back" type="button" aria-label="Back to tools">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <h2 id="tool-title"></h2>
+          <button class="icon-btn" id="tool-close" type="button" aria-label="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="tool-body" id="tool-body"></div>
+      </div>
+    </dialog>
+
+    <dialog id="tips" class="drawer" aria-labelledby="tips-title">
+      <form method="dialog" class="sheet tips-sheet">
+        <div class="sheet-head">
+          <h2 id="tips-title">Tips</h2>
+          <button class="icon-btn" value="close" aria-label="Close tips">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="tips-body">
+          <p class="hint1">Tap one to try it.</p>
+          <h3>Ask anything</h3>
+          <div class="tips-try"><button type="button" data-try="15% tip on 84.50">15% tip on 84.50</button><button type="button" data-try="5 miles to km">5 miles to km</button><button type="button" data-try="solve x^2 - 5x + 6 = 0">solve x^2 - 5x + 6 = 0</button><button type="button" data-try="x + y = 5, x - y = 1">x + y = 5, x - y = 1</button><button type="button" data-try="derivative of x^3 sin(x)">derivative of x^3 sin(x)</button><button type="button" data-try="cylinder volume 500 cm³ radius 4, height?">cylinder volume 500, radius 4, height?</button><button type="button" data-try="days until christmas">days until christmas</button></div>
+          <h3>Keep things</h3>
+          <div class="tips-try"><button type="button" data-try="rate = 0.2">rate = 0.2</button><button type="button" data-try="f(x) = x^2 + 1">f(x) = x^2 + 1</button><button type="button" data-try="timer 5 minutes">timer 5 minutes</button><button type="button" data-try="pomodoro">pomodoro</button><button type="button" data-try="remember: chain rule is f'(g(x))·g'(x)">remember: …</button><button type="button" data-try="add a task: problem set 4 due Friday">add a task: … due Friday</button></div>
+          <h3>Keep going</h3>
+          <div class="tips-try"><button type="button" data-try="12 plus 8 then times 3">12 plus 8 then times 3</button><button type="button" data-try="ans / 4">ans / 4</button><button type="button" data-try="that squared">that squared</button></div>
+          <h3>Open</h3>
+          <div class="tips-try"><button type="button" data-try="open the whiteboard">open the whiteboard</button><button type="button" data-try="open geometry">open geometry</button><button type="button" data-try="simulate a projectile at 20 m/s 45 degrees">simulate a projectile…</button><button type="button" data-try="explain the chain rule in chalkboard style">explain … in chalkboard style</button><button type="button" data-try="load everything">load everything</button></div>
+          <h3>Voice</h3>
+          <ul class="tips-list"><li>Say <q>undo</q>, <q>start over</q> or <q>stop</q></li><li><span aria-hidden="true">∞</span> next to the mic keeps listening</li></ul>
+          <h3>Keys</h3>
+          <dl class="tips-keys">
+            <dt><kbd>/</kbd></dt><dd>Type</dd>
+            <dt><kbd>↑</kbd> <kbd>↓</kbd></dt><dd>Earlier inputs</dd>
+            <dt><kbd>Alt</kbd> <kbd>M</kbd></dt><dd>Mic</dd>
+            <dt><kbd>Alt</kbd> <kbd>1</kbd>–<kbd>4</kbd></dt><dd>Basic, Scientific, Graphing, Matrix</dd>
+            <dt><kbd>Alt</kbd> <kbd>S</kbd></dt><dd>Symbols</dd>
+            <dt><kbd>⌘/Ctrl</kbd> <kbd>⇧</kbd> <kbd>C</kbd></dt><dd>Copy answer</dd>
+            <dt><kbd>⌘/Ctrl</kbd> <kbd>⇧</kbd> <kbd>N</kbd></dt><dd>Notebooks</dd>
+            <dt><kbd>Esc</kbd></dt><dd>Clear</dd>
+            <dt class="desktop-only"><kbd>⌘/Ctrl</kbd> <kbd>⇧</kbd> <kbd>Space</kbd></dt><dd class="desktop-only">Quick calculator, anywhere</dd>
+            <dt class="desktop-only"><kbd>⌘/Ctrl</kbd> <kbd>⇧</kbd> <kbd>M</kbd></dt><dd class="desktop-only">Talk to it, anywhere</dd>
+          </dl>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="settings" class="drawer" aria-labelledby="settings-title">
+      <form method="dialog" class="sheet settings-sheet">
+        <div class="sheet-head">
+          <h2 id="settings-title">Settings</h2>
+          <button class="icon-btn" value="close" aria-label="Close settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <nav class="set-index" id="set-index" aria-label="Settings sections">
+          <button type="button" data-to="set-look">Look</button>
+          <button type="button" data-to="set-answers">Answers</button>
+          <button type="button" data-to="set-voice">Voice</button>
+          <button type="button" data-to="set-ai">AI</button>
+          <button type="button" data-to="set-data">Data</button>
+          <button type="button" data-to="set-addons">Add-ons</button>
+        </nav>
+
+        <div class="set-body" id="set-body">
+          <section class="set" id="set-look" aria-labelledby="set-look-h">
+            <div class="set-head"><h3 id="set-look-h">Look</h3></div>
+            <div class="looks" id="looks" role="radiogroup" aria-label="Theme"></div>
+            <label class="row">Light or dark <select name="theme"><option value="system">Auto</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+            <label class="row">Text size <select name="textSize"><option value="s">Small</option><option value="m">Medium</option><option value="l">Large</option><option value="xl">Extra large</option></select></label>
+            <label class="row">Motion <select name="motion"><option value="full">Normal</option><option value="calm">Calm</option></select></label>
+            <details class="more" id="motion-more">
+              <summary>Customize motion</summary>
+              <label class="row">Answers and lists <input type="checkbox" name="motionAnswers" /></label>
+              <label class="row">Panels and screens <input type="checkbox" name="motionPanels" /></label>
+              <label class="row">Graphs and lessons <input type="checkbox" name="motionContent" /></label>
+              <label class="row">Right, wrong and done <input type="checkbox" name="motionFeedback" /></label>
+              <label class="row">Button press <input type="checkbox" name="motionPress" /></label>
+              <label class="row">Mic pulse <input type="checkbox" name="motionMic" /></label>
+            </details>
+            <details class="more">
+              <summary>More</summary>
+              <label class="row">Accent <span class="accent-pick"><input type="color" name="accent" id="accent" /><button type="button" class="link" id="accent-reset">Default</button></span></label>
+              <label class="row">Font <select name="font"><option value="rounded">Rounded</option><option value="sans">Sans</option><option value="serif">Serif</option><option value="mono">Mono</option></select></label>
+              <label class="row">Spacing <select name="density"><option value="cozy">Cozy</option><option value="compact">Compact</option></select></label>
+              <label class="row">Corners <select name="corners"><option value="round">Round</option><option value="soft">Soft</option><option value="square">Square</option></select></label>
+            </details>
+          </section>
+
+          <section class="set" id="set-answers" aria-labelledby="set-answers-h">
+            <div class="set-head"><h3 id="set-answers-h">Answers</h3></div>
+            <label class="row">Digits <select name="digits"><option>6</option><option>8</option><option>10</option><option>12</option><option>15</option><option>20</option><option>30</option></select></label>
+            <label class="row">Angles <select name="angle"><option value="deg">Degrees</option><option value="rad">Radians</option></select></label>
+            <label class="row">Currency <select name="currency"><option>$</option><option>€</option><option>£</option><option>¥</option><option>₹</option><option value="">None</option></select></label>
+            <label class="row">Group thousands <input type="checkbox" name="grouping" /></label>
+            <label class="row">Working <select name="working"><option value="lines">Line by line</option><option value="inline">One line</option></select></label>
+            <label class="row">Extra details <input type="checkbox" name="showDetails" /></label>
+            <label class="row">Calculator <select name="calcMode"><option value="basic">Basic</option><option value="scientific">Scientific</option><option value="graphing">Graphing</option><option value="matrix">Matrix</option></select></label>
+            <label class="row">Keypad <input type="checkbox" name="showKeypad" /></label>
+            <label class="row">Hint text in the input <input type="checkbox" name="inputHints" /></label>
+          </section>
+
+          <section class="set" id="set-voice" aria-labelledby="set-voice-h">
+            <div class="set-head">
+              <h3 id="set-voice-h">Voice</h3>
+              <details class="tip"><summary aria-label="Where voice is heard">?</summary><p id="voice-note"></p></details>
+            </div>
+            <label class="row">Read answers aloud <input type="checkbox" name="speakResults" /></label>
+            <label class="row">Keep listening <input type="checkbox" name="continuousListening" /></label>
+            <label class="row">Language <input name="voiceLang" size="8" spellcheck="false" autocomplete="off" /></label>
+            <details class="more">
+              <summary>More</summary>
+              <label class="row">Recognition <select name="voiceEngine"><option value="auto">Automatic</option><option value="browser">Browser</option><option value="whisper">On this device</option></select></label>
+              <label class="row">Prefer on-device <input type="checkbox" name="preferOnDevice" /></label>
+              <label class="row">Wait after I stop <select name="voicePatience"><option value="short">Short</option><option value="normal">Normal</option><option value="long">Long</option></select></label>
+              <label class="row">Speaking speed <input type="range" name="speechRate" min="0.6" max="1.8" step="0.1" /></label>
+            </details>
+          </section>
+
+          <section class="set" id="set-ai" aria-labelledby="set-ai-h">
+            <div class="set-head">
+              <h3 id="set-ai-h">AI</h3>
+              <details class="tip"><summary aria-label="How AI uses your data">?</summary><p>Your question goes to the provider you pick. Every number still comes from Lemma, and plain math never uses AI.</p></details>
+            </div>
+            <label class="row">Assistant <input type="checkbox" name="aiEnabled" /></label>
+            <div class="ai-fields" id="ai-fields">
+              <label class="row">Provider <select name="aiProvider" id="ai-provider"></select></label>
+              <p class="hint1" id="ai-hint"></p>
+              <label class="row">Explanations <select name="aiLevel"><option value="answer-only">Answer only</option><option value="concise">Short</option><option value="detailed">Detailed</option><option value="beginner">Beginner</option><option value="advanced">Advanced</option></select></label>
+              <label class="row">Offer when stuck <input type="checkbox" name="aiFallback" /></label>
+              <details class="more" id="ai-more">
+                <summary>More</summary>
+                <label class="row ai-key">API key <input name="aiKey" type="password" size="18" autocomplete="off" spellcheck="false" placeholder="Kept on this device" /></label>
+                <label class="row ai-base">Server address <input name="aiBaseUrl" size="22" spellcheck="false" /></label>
+                <label class="row">Model <input name="aiModel" id="ai-model" list="ai-models" size="20" spellcheck="false" placeholder="Model name" /></label>
+                <datalist id="ai-models"></datalist>
+                <div class="row ai-actions"><span class="hint1" id="ai-status"></span><button type="button" class="nb-btn" id="ai-test">Load models</button></div>
+              </details>
+            </div>
+          </section>
+
+          <section class="set" id="set-data" aria-labelledby="set-data-h">
+            <div class="set-head">
+              <h3 id="set-data-h">Data</h3>
+              <details class="tip"><summary aria-label="What leaves this device">?</summary><p>Backups are locked with your passphrase, and a lost one can’t be recovered. Nothing you type goes online.</p></details>
+            </div>
+            <div class="row sync-actions"><span>Backup</span><span class="btns"><button type="button" class="nb-btn" id="sync-backup">Back up…</button><button type="button" class="nb-btn" id="sync-restore">Restore…</button></span><input type="file" id="sync-file" accept=".lemmasync,application/octet-stream" hidden /></div>
+            <div class="row"><span>Sync your devices<span class="hint1">History, notes and formulas on phone, laptop and browser, end-to-end encrypted</span></span><button type="button" class="nb-btn" id="sync-setup">Set up…</button></div>
+            <label class="row">Save history <input type="checkbox" name="keepHistory" /></label>
+            <label class="row">Live exchange rates <input type="checkbox" name="liveRates" /></label>
+            <div class="row warm-row"><span>Ready offline<span class="hint1 warm-when" id="warm-when"></span></span><button type="button" class="nb-btn" id="warm-now">Load everything</button></div>
+            <div class="warm-bar" id="warm-bar" hidden><i></i></div>
+            <ol class="warm-steps" id="warm-steps" hidden></ol>
+            <label class="row">Load on start <input type="checkbox" name="warmOnStart" /></label>
+            <details class="more">
+              <summary>More</summary>
+              <label class="row"><span>Include voice model <small>40 MB</small></span><input type="checkbox" name="warmVoice" /></label>
+              <label class="row"><span>Include AI model <small>570 MB</small></span><input type="checkbox" name="warmAi" /></label>
+              <div class="row sync-folder" hidden><span id="sync-folder-label">Sync folder: not set</span><span class="btns"><button type="button" class="nb-btn" id="sync-folder">Choose…</button><button type="button" class="nb-btn" id="sync-now">Sync now</button></span></div>
+            </details>
+          </section>
+
+          <section class="set" id="set-addons" aria-labelledby="set-addons-h">
+            <div class="set-head"><h3 id="set-addons-h">Add-ons</h3></div>
+            <div class="row"><span>Extensions</span><button type="button" class="nb-btn" id="open-extensions">Manage…</button></div>
+            <div class="row"><span>Browser extension</span><button type="button" class="nb-btn" id="open-add-to-browser">Add…</button></div>
+          </section>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="extensions" aria-labelledby="extensions-title">
+      <form method="dialog" class="sheet ext-sheet">
+        <div class="sheet-head">
+          <h2 id="extensions-title">Extensions</h2>
+          <button class="icon-btn" value="close" aria-label="Close extensions">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <div class="ext-body"></div>
+      </form>
+    </dialog>
+
+    <dialog id="passphrase" aria-labelledby="passphrase-title">
+      <form method="dialog" class="sheet">
+        <h2 id="passphrase-title">Passphrase</h2>
+        <p class="fine" id="passphrase-why"></p>
+        <label class="row">Passphrase <input type="password" id="pp1" autocomplete="new-password" /></label>
+        <label class="row" id="pp2-row">Repeat <input type="password" id="pp2" autocomplete="new-password" /></label>
+        <label class="row" id="pp-remember-row" hidden>Remember on this device (OS keychain) <input type="checkbox" id="pp-remember" checked /></label>
+        <p class="fine" id="pp-strength"></p>
+        <div class="row"><span></span><span><button class="nb-btn" value="cancel">Cancel</button> <button class="nb-btn primary" value="ok" id="pp-ok">Continue</button></span></div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" popover="manual" hidden></div>
+    <script>
+      // Compatibility notice for browsers below the supported baseline (Safari/iOS < 16.4, very old Chromium/Firefox).
+      (function () {
+        var ok = true;
+        try {
+          new RegExp('(?<=a)b');
+          ok = typeof structuredClone === 'function' && 'replaceChildren' in Element.prototype;
+        } catch (e) {
+          ok = false;
+        }
+        if (ok) return;
+        var n = document.createElement('div');
+        n.className = 'compat';
+        n.setAttribute('role', 'status');
+        n.textContent = 'This browser is older than Lemma supports. Basic calculations work, but update to Safari 16.4+, Chrome, Edge or Firefox 115+ for every feature.';
+        document.body.prepend(n);
+      })();
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

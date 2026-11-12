@@ -1,0 +1,63 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.savings-goal",
+  "name": "Savings goal",
+  "description": "Monthly deposit needed to reach a savings goal in a number of years at an annual interest rate (compounded monthly, deposits at month end).",
+  "kind": "formula",
+  "templates": [
+    "save {goal} in {years} years at {rate}%",
+    "save {goal} in {years} years at {rate} percent",
+    "savings goal {goal} in {years} years at {rate}%",
+    "monthly saving for {goal} over {years} years at {rate}%"
+  ],
+  "inputs": [
+    {
+      "name": "goal",
+      "label": "Goal",
+      "min": 0
+    },
+    {
+      "name": "years",
+      "label": "Years",
+      "min": 0.0834,
+      "max": 100
+    },
+    {
+      "name": "rate",
+      "label": "Annual rate",
+      "unit": "%",
+      "min": 0.01,
+      "max": 100
+    }
+  ],
+  "formula": "goal * (rate / 1200) / ((1 + rate / 1200)^(years * 12) - 1)",
+  "output": {
+    "label": "Monthly deposit",
+    "decimals": 2
+  },
+  "lines": [
+    {
+      "label": "You pay in",
+      "formula": "goal * (rate / 1200) / ((1 + rate / 1200)^(years * 12) - 1) * years * 12",
+      "decimals": 2
+    },
+    {
+      "label": "Interest earned",
+      "formula": "goal - goal * (rate / 1200) / ((1 + rate / 1200)^(years * 12) - 1) * years * 12",
+      "decimals": 2
+    }
+  ],
+  "examples": [
+    {
+      "input": "save 10000 in 5 years at 4%",
+      "expect": "150.83"
+    },
+    {
+      "input": "save 50000 in 10 years at 5 percent",
+      "expect": "321.99"
+    }
+  ]
+}

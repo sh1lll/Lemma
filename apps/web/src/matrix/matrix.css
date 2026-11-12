@@ -1,0 +1,260 @@
+/* Matrix mode: cards for named matrices, a quiet expression line, results between soft brackets. */
+.mx {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+.mx-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.mx-title {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+.mx-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+}
+.mx-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.mx-card {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 100%;
+  padding: 10px;
+  border-radius: var(--radius, 18px);
+  background: var(--surface);
+}
+.mx-card-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mx-badge {
+  display: grid;
+  place-items: center;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 600;
+}
+.mx-size {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.mx-dim {
+  padding: 2px 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  font-size: 13px;
+}
+.mx-use {
+  margin-left: auto;
+  font-size: 13px;
+}
+.mx-del {
+  width: 28px;
+  height: 28px;
+}
+.mx-grid {
+  display: grid;
+  gap: 4px;
+  max-width: calc(100vw - 52px);
+  overflow-x: auto;
+}
+.mx-in {
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  padding: 0 6px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--surface-2);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+}
+.mx-in:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg);
+}
+.mx-in.bad {
+  border-color: var(--warn);
+}
+
+.mx-calc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border-radius: var(--radius, 18px);
+  background: var(--surface);
+}
+.mx-expr {
+  min-height: 1.2em;
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.mx-result {
+  min-height: 48px;
+  overflow-x: auto;
+  cursor: pointer;
+}
+.mx-result.preview,
+.mx-result.stale {
+  opacity: 0.6;
+}
+.mx-result.error {
+  cursor: default;
+}
+.mx-hint,
+.mx-error {
+  color: var(--muted);
+  font-size: 15px;
+}
+.mx-error {
+  color: var(--warn);
+}
+.mx-num {
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
+}
+.mx-mat {
+  position: relative;
+  display: inline-grid;
+  gap: 4px 16px;
+  padding: 6px 12px;
+  font-variant-numeric: tabular-nums;
+  font-size: 18px;
+}
+.mx-mat::before,
+.mx-mat::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  border: 1.5px solid var(--ink);
+  opacity: 0.7;
+}
+.mx-mat::before {
+  left: 0;
+  border-right: 0;
+  border-radius: 6px 0 0 6px;
+}
+.mx-mat::after {
+  right: 0;
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+}
+.mx-cell {
+  text-align: right;
+}
+.mx-parts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+.mx-part {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mx-part .mx-num {
+  font-size: 18px;
+}
+.mx-part-label {
+  color: var(--muted);
+  font-size: 14px;
+}
+.mx-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.mx-actions:empty {
+  display: none;
+}
+.mx-ask {
+  display: flex;
+}
+.mx-input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+  font-size: 17px;
+}
+.mx-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.mx-history h3 {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+.mx-history ol {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mx-history ol:empty::after {
+  content: 'Results you calculate appear here. Tap one to use it again.';
+  color: var(--faint);
+  font-size: 13px;
+}
+.mx-h {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  text-align: left;
+}
+.mx-h:hover {
+  background: var(--surface);
+}
+.mx-h-out {
+  color: var(--muted);
+}
+.mx-kb .mkb-key.mx-name {
+  font-weight: 600;
+}
+
+/* Matrix mode takes the page like Graphing: the calculator parts wait, keeping their state. */
+.app[data-mode='matrix'] main > :not(.modes):not(.mx):not(.timers) {
+  display: none !important;
+}

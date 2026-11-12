@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemma settings</title>
+  </head>
+  <body>
+    <main class="stack" style="max-width: 640px; margin: 0 auto; padding: 24px 16px 48px">
+      <header class="brand"><img src="/icons/icon-32.png" alt="" /><h1 style="font-size: 18px">Lemma settings</h1></header>
+
+      <section class="card stack" aria-labelledby="tutor-h">
+        <h2 id="tutor-h">Tutor</h2>
+        <fieldset class="stack" style="border: 0; padding: 0; margin: 0; gap: 6px">
+          <legend style="margin-bottom: 6px">When you ask for steps</legend>
+          <label class="row"><input type="radio" name="mode" value="tutor" /> Tutor mode: a hint first, then the steps, then the answer (default)</label>
+          <label class="row"><input type="radio" name="mode" value="answer" /> Show the steps and the answer together</label>
+        </fieldset>
+        <label class="row" for="style">Lesson style <select id="style" class="field" style="width: auto"></select></label>
+        <p id="style-blurb" class="muted" style="margin: 0; font-size: 13px"></p>
+      </section>
+
+      <section class="card stack" aria-labelledby="fill-h">
+        <h2 id="fill-h">Filling in answers</h2>
+        <p class="muted" style="margin: 0">
+          "Fill" writes one answer into one field you pick. It never submits a form and it only runs when you click it.
+        </p>
+        <label class="row"><input type="checkbox" id="learning-first" /> Learning first: only allow Fill after the steps for that answer have been opened</label>
+        <div class="stack" style="gap: 8px">
+          <label for="domain">Assessment sites (Fill is turned off on these and their subdomains)</label>
+          <form id="add-domain" class="row" style="flex-wrap: nowrap">
+            <input id="domain" class="field" type="text" placeholder="quiz.example.edu" autocomplete="off" spellcheck="false" />
+            <button class="btn" type="submit">Add</button>
+          </form>
+          <p id="domain-error" class="muted" role="alert" style="margin: 0; font-size: 13px"></p>
+          <ul id="domains" class="stack" style="list-style: none; padding: 0; margin: 0; gap: 4px" aria-label="Assessment sites"></ul>
+        </div>
+      </section>
+
+      <section class="card stack" aria-labelledby="look-h">
+        <h2 id="look-h">Appearance</h2>
+        <label class="row" for="theme">Theme
+          <select id="theme" class="field" style="width: auto">
+            <option value="system">Match the system</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="card stack" aria-labelledby="ocr-h">
+        <h2 id="ocr-h">Reading text from the screen</h2>
+        <p style="margin: 0" id="ocr-note"></p>
+      </section>
+
+      <section class="card stack" aria-labelledby="privacy-h">
+        <h2 id="privacy-h">Privacy</h2>
+        <ul style="margin: 0; padding-left: 18px" class="stack">
+          <li>Lemma reads a page only when you ask it to (a right-click action, "Solve what's on screen", or the keyboard shortcut). It has no access to sites in the background and injects nothing until you invoke it.</li>
+          <li>Every calculation, solution, lesson and screen reading runs on this device. Page text, selections, screenshots and answers are never sent anywhere.</li>
+          <li>The only network request the extension can make is the one-time download of the English text-recognition data described above, if it was not bundled. It contains no information about you or the page.</li>
+          <li>Settings sync with your browser profile (storage.sync). Calculator history stays on this device (storage.local).</li>
+          <li>No analytics, no accounts, no ads.</li>
+        </ul>
+      </section>
+      <p id="saved" class="muted" role="status" style="margin: 0; font-size: 12px"></p>
+    </main>
+    <script type="module" src="./options/options.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Static app shortcuts (long-press the launcher icon) and App Actions
+    capabilities (Google Assistant / Gemini). All intents are explicit and land
+    in MainActivity, which maps them to the web app's ?q= / ?listen=1
+    (see LemmaLaunch.parse). targetPackage must equal the applicationId.
+-->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- "Search for 2+2 on Lemma": BII parameter thing.name arrives as extra "q". -->
+    <capability android:name="actions.intent.GET_THING">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="app.lemma.mobile.MainActivity"
+            android:targetPackage="app.lemma.mobile">
+            <parameter
+                android:name="thing.name"
+                android:key="q" />
+        </intent>
+    </capability>
+
+    <!-- "Calculate 15% of 80 on Lemma": custom intent, $expression arrives as extra "q". -->
+    <capability
+        android:name="custom.actions.intent.CALCULATE"
+        app:queryPatterns="@array/lemma_calculate_queries">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="app.lemma.mobile.MainActivity"
+            android:targetPackage="app.lemma.mobile">
+            <parameter
+                android:name="expression"
+                android:key="q"
+                android:mimeType="https://schema.org/Text" />
+        </intent>
+    </capability>
+
+    <!-- "Open Lemma voice": matched shortcut id arrives as extra "feature". -->
+    <capability android:name="actions.intent.OPEN_APP_FEATURE">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="app.lemma.mobile.MainActivity"
+            android:targetPackage="app.lemma.mobile">
+            <parameter
+                android:name="feature"
+                android:key="feature" />
+        </intent>
+    </capability>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_calculate"
+        android:shortcutDisabledMessage="@string/shortcut_calculate_disabled"
+        android:shortcutId="calculate"
+        android:shortcutLongLabel="@string/shortcut_calculate_long"
+        android:shortcutShortLabel="@string/shortcut_calculate_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="lemma://calculate"
+            android:targetClass="app.lemma.mobile.MainActivity"
+            android:targetPackage="app.lemma.mobile" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_voice"
+        android:shortcutDisabledMessage="@string/shortcut_voice_disabled"
+        android:shortcutId="voice"
+        android:shortcutLongLabel="@string/shortcut_voice_long"
+        android:shortcutShortLabel="@string/shortcut_voice_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="lemma://listen"
+            android:targetClass="app.lemma.mobile.MainActivity"
+            android:targetPackage="app.lemma.mobile" />
+        <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <parameter-binding
+                android:key="feature"
+                android:value="@array/lemma_voice_synonyms" />
+        </capability-binding>
+    </shortcut>
+</shortcuts>

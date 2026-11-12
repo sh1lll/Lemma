@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lesson harness (dev only)</title>
+  </head>
+  <body>
+    <!-- Dev-only harness for src/lesson. Not part of the production build (not a rollup input). -->
+    <main id="harness" style="max-width: 960px; margin: 0 auto; padding: 24px 16px; display: grid; gap: 24px">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap">
+        <button id="theme" type="button">Toggle theme</button>
+        <button id="export" type="button">Create video</button>
+        <span id="status" aria-live="polite"></span>
+      </div>
+      <!-- Lesson-script mode (?script=equation|graph|lecture&style=chalkboard): script + style pickers. -->
+      <div id="script-ui" hidden style="gap: 12px; flex-wrap: wrap; align-items: center">
+        <label>Script <select id="script-pick"></select></label>
+        <label>Style <select id="style-pick"></select></label>
+        <span style="color: var(--muted); font-size: 13px">Links: <a href="?script=equation">equation</a> · <a href="?script=graph">graph</a> · <a href="?script=lecture">lecture</a> · <a href="?">step-card lesson</a></span>
+      </div>
+      <div id="player"></div>
+      <canvas id="frame" style="width: 100%; border: 1px solid var(--line)" hidden></canvas>
+      <div id="gallery"></div>
+    </main>
+    <script type="module" src="/src/lesson/harness.ts"></script>
+  </body>
+</html>

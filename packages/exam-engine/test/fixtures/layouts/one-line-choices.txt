@@ -1,0 +1,9 @@
+Algebra 1 Quiz — Linear Equations
+Name: __________  Period: ____
+
+1) Solve for x: 3x - 7 = 11   (A) 4  (B) 5  (C) 6  (D) 7
+2) What is the y-intercept of y = 2x + 9?   (A) 2  (B) -2  (C) 9  (D) -9
+3) Which value of x makes 5x = 35 true?  a) 5  b) 6  c) 7  d) 8
+4) Simplify 4(x + 2) - 3x.   (A) x + 8  (B) x + 2  (C) 7x + 8  (D) x + 6
+
+Answers: 1. C 2. C 3. c 4. A

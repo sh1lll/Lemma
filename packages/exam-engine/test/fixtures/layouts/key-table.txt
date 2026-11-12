@@ -1,0 +1,19 @@
+Unit 5 Quiz
+Name: ________
+
+1. Solve x + 4 = 10.
+A. 4   B. 5   C. 6   D. 14
+2. Solve 2x = 18.
+A. 7   B. 8   C. 9   D. 36
+3. Evaluate 3^2 + 1.
+A. 7   B. 9   C. 10   D. 12
+4. What is 25% of 80?
+A. 15   B. 20   C. 25   D. 40
+
+Answer Key
+| Question | Answer |
+|----------|--------|
+| 1        | C      |
+| 2        | C      |
+| 3        | C      |
+| 4        | B      |

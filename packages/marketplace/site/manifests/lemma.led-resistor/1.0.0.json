@@ -1,0 +1,62 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.led-resistor",
+  "name": "LED resistor",
+  "description": "Series resistor for an LED from supply voltage, LED forward voltage and current (mA), with the power the resistor must handle. Use the next standard value up.",
+  "kind": "formula",
+  "templates": [
+    "led resistor {supply} v {forward} v {current} ma",
+    "resistor for led {supply} v supply {forward} v at {current} ma",
+    "led resistor {supply} {forward} {current}"
+  ],
+  "inputs": [
+    {
+      "name": "supply",
+      "label": "Supply",
+      "unit": "V",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "name": "forward",
+      "label": "LED forward voltage",
+      "unit": "V",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "name": "current",
+      "label": "Current",
+      "unit": "mA",
+      "min": 0.001,
+      "max": 10000
+    }
+  ],
+  "formula": "(supply - forward) / (current / 1000)",
+  "output": {
+    "label": "Resistor",
+    "unit": "Ω",
+    "decimals": 0
+  },
+  "lines": [
+    {
+      "label": "Power in the resistor",
+      "formula": "(supply - forward) * current",
+      "decimals": 0,
+      "unit": "mW"
+    }
+  ],
+  "examples": [
+    {
+      "input": "led resistor 5 v 2 v 20 ma",
+      "expect": "150"
+    },
+    {
+      "input": "resistor for led 12 v supply 3.2 v at 350 ma",
+      "expect": "25"
+    }
+  ]
+}

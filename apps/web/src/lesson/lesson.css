@@ -1,0 +1,522 @@
+/* Lesson player + video gallery. Sizes inside the stage use --u (stage width / 1280), the same
+   layout units the canvas exporter uses, so the saved video matches the player. */
+
+.ol-player {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+.ol-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  container-type: inline-size;
+  --u: calc(100cqw / 1280);
+  cursor: pointer;
+  outline: none;
+}
+
+.ol-stage:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.ol-header {
+  position: absolute;
+  top: calc(var(--u) * 52);
+  left: calc(var(--u) * 120);
+  right: calc(var(--u) * 120);
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--u) * 14);
+  font-size: calc(var(--u) * 20);
+  line-height: 1.35;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ol-header-label {
+  flex: none;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: calc(var(--u) * 15);
+}
+
+.ol-header-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ol-scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: calc(var(--u) * 130) calc(var(--u) * 120) calc(var(--u) * 80);
+  will-change: opacity, transform;
+}
+
+.ol-scene.ol-center {
+  align-items: center;
+  text-align: center;
+  padding-top: calc(var(--u) * 80);
+}
+
+.ol-scene.ol-left {
+  align-items: flex-start;
+}
+
+.ol-scene > * {
+  margin: 0;
+  max-width: 100%;
+}
+
+.ol-scene > * + * {
+  margin-top: calc(var(--u) * 22);
+}
+
+.ol-scene > .ol-label + * {
+  margin-top: calc(var(--u) * 14);
+}
+
+.ol-label {
+  font-size: calc(var(--u) * 17);
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.ol-heading {
+  font-size: calc(var(--u) * 60);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ol-text {
+  line-height: 1.35;
+}
+
+.ol-lg {
+  font-size: calc(var(--u) * 36);
+}
+
+.ol-md {
+  font-size: calc(var(--u) * 28);
+}
+
+.ol-sm {
+  font-size: calc(var(--u) * 22);
+}
+
+.ol-ink {
+  color: var(--ink);
+}
+
+.ol-muted {
+  color: var(--muted);
+}
+
+.ol-math {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.ol-math-lg {
+  font-size: calc(var(--u) * 44);
+}
+
+.ol-math-md {
+  font-size: calc(var(--u) * 34);
+}
+
+.ol-math-inner {
+  display: inline-block;
+}
+
+.ol-math .katex,
+.ol-answer .katex {
+  white-space: nowrap;
+}
+
+.ol-answer {
+  position: relative;
+  font-size: calc(var(--u) * 52);
+  padding: calc(var(--u) * 28) calc(var(--u) * 40);
+  background: var(--surface);
+  border: calc(var(--u) * 2) solid var(--line);
+  border-radius: var(--radius);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.ol-answer::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--u) * -2);
+  border: calc(var(--u) * 2) solid var(--accent);
+  border-radius: inherit;
+  opacity: var(--h, 0);
+  pointer-events: none;
+}
+
+.ol-answer-text {
+  font-weight: 600;
+}
+
+.ol-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Controls */
+
+.ol-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.ol-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.ol-btn:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.ol-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ol-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.ol-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ol-icon,
+.ol-play {
+  width: 40px;
+  padding: 0;
+}
+
+.ol-play {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.ol-play:hover:not(:disabled) {
+  background: var(--accent);
+  opacity: 0.9;
+}
+
+.ol-voice[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ol-time {
+  flex: none;
+  min-width: 7.5em;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ol-scrub {
+  flex: 1;
+  min-width: 60px;
+  height: 24px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  --p: 0%;
+}
+
+.ol-scrub::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--accent) var(--p), var(--line) var(--p));
+}
+
+.ol-scrub::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.ol-scrub::-moz-range-progress {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.ol-scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: none;
+}
+
+.ol-scrub::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: none;
+}
+
+.ol-scrub:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.ol-player:fullscreen {
+  justify-content: center;
+  padding: 24px;
+  background: var(--bg);
+}
+
+.ol-player:fullscreen .ol-stage {
+  width: min(100%, calc((100vh - 48px - 56px) * 16 / 9));
+  margin: 0 auto;
+  border: none;
+}
+
+.ol-player:fullscreen .ol-controls {
+  width: min(100%, calc((100vh - 48px - 56px) * 16 / 9));
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  .ol-controls {
+    gap: 8px;
+  }
+  .ol-time {
+    min-width: 0;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ol-scene {
+    transform: none !important;
+  }
+  .ol-btn {
+    transition: none;
+  }
+}
+
+/* Gallery */
+
+.ol-gallery {
+  font-family: var(--sans);
+  color: var(--ink);
+}
+
+.ol-gallery-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ol-gallery-item {
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.ol-gallery-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ol-gallery-info {
+  flex: 1;
+  min-width: 12em;
+}
+
+.ol-gallery-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.ol-gallery-meta {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ol-gallery-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ol-gallery-actions .ol-btn {
+  min-height: 36px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.ol-gallery-actions .ol-danger[data-confirm='true'] {
+  border-color: var(--ink);
+}
+
+.ol-gallery-video {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  border-radius: calc(var(--radius) - 6px);
+  background: var(--bg);
+}
+
+.ol-gallery-empty,
+.ol-gallery-error {
+  margin: 0;
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  line-height: 1.5;
+}
+
+/* ---------- Lesson-script player (canvas stage) ---------- */
+
+.ol-script-stage {
+  background: #101418;
+}
+
+.ol-script-stage[data-look='light'] {
+  background: #f7f5f0;
+}
+
+.ol-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ol-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  color: #c9ccd2;
+  pointer-events: none;
+}
+
+.ol-script-stage[data-look='light'] .ol-loading {
+  color: #6c6c72;
+}
+
+.ol-loading[hidden] {
+  display: none;
+}
+
+.ol-caption {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--u) * 22);
+  transform: translateX(-50%);
+  max-width: calc(var(--u) * 1090);
+  padding: calc(var(--u) * 10) calc(var(--u) * 22);
+  border-radius: calc(var(--u) * 12);
+  background: rgba(8, 10, 14, 0.74);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: max(13px, calc(var(--u) * 25));
+  font-weight: 500;
+  line-height: 1.38;
+  text-align: center;
+  pointer-events: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ol-caption[hidden] {
+  display: none;
+}
+
+.ol-showme {
+  position: absolute;
+  right: calc(var(--u) * 28);
+  top: calc(var(--u) * 26);
+  min-height: 36px;
+  padding: 0 18px;
+  font-weight: 600;
+  background: #ffffff;
+  color: #141416;
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+.ol-showme:hover:not(:disabled) {
+  background: #f1f1ee;
+}
+
+.ol-showme[hidden] {
+  display: none;
+}
+
+.ol-cc[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}

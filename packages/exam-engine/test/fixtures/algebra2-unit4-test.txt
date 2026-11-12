@@ -1,0 +1,135 @@
+Algebra 2 — Unit 4 Test: Quadratic and Exponential Functions
+Ms. Ramirez · Room 214
+
+Name: ______________________   Date: ____________   Period: ____
+
+Time: 50 minutes. Show all work for full credit on free response questions.
+Multiple choice: 3 points each. Free response point values are shown next to each question.
+
+Part A – No Calculator
+
+1. Solve for x: 3x + 7 = 22.
+A. 3
+B. 5
+C. 7
+D. 29/3
+
+2. What are the solutions of x^2 − 5x + 6 = 0?
+A. x = 2 or x = 3     B. x = −2 or x = −3
+C. x = 1 or x = 6     D. x = −1 or x = −6
+
+3. Solve x^2 − 9 = 0.
+A. x = 9     B. x = 3 only     C. x = 3 or x = −3     D. x = 81
+
+4. Which expression is equivalent to (2x^3)(4x^2)?
+A. 6x^5
+B. 8x^6
+C. 6x^6
+D. 8x^5
+
+5. Evaluate 2^−3.
+A. −8     B. −6     C. 1/6     D. 1/8
+
+6. What is the vertex of y = (x − 4)^2 + 1?
+A. (−4, 1)
+B. (4, 1)
+C. (4, −1)
+D. (1, 4)
+
+Algebra 2 – Unit 4 Test                                   Page 1 of 4
+7. Solve 2x^2 + 3x − 2 = 0.
+A. x = −1/2 or x = 2
+B. x = 1 or x = −2
+C. x = 1/2 or x = −2
+D. x = 2 or x = 1/2
+
+8. Factor completely: x^2 + 7x + 12.
+A. (x + 2)(x + 6)     B. (x − 3)(x − 4)     C. (x + 1)(x + 12)     D. (x + 3)(x + 4)
+
+9. The graph of a parabola is shown below. Which equation could it represent?
+[Figure: a parabola opening downward with its vertex at (0, 3) and x-intercepts near −1.7 and 1.7]
+A. y = x^2 + 3
+B. y = −x^2 + 3
+C. y = −x^2 − 3
+D. y = x^2 − 3
+
+10. Simplify x^8 / x^2.
+A. x^4     B. x^6     C. x^10     D. 6x
+
+11. What is the discriminant of x^2 + 4x + 7?
+A. −12     B. 12     C. 44     D. −44
+
+12. Solve 5(x − 2) = 3x + 4.
+A. 3     B. −7     C. 7     D. 1
+
+13. (6 pts) Solve x^2 + 2x − 15 = 0 by factoring. Show your work.
+
+
+
+14. Let f(x) = x^2 − 6x + 5. (8 pts)
+(a) Find the zeros of f. (3 pts)
+(b) Write f in vertex form. (3 pts)
+(c) State the minimum value of f. (2 pts)
+
+Algebra 2 – Unit 4 Test                                   Page 2 of 4
+Part B – Calculator
+
+15. What is 18% of 250?
+A. 4.5     B. 45     C. 450     D. 13.9
+
+16. $2,000 is invested at 5% per year, compounded annually. What is it worth after 3 years? Round to the nearest cent.
+A. $2,300.00
+B. $2,315.25
+C. $2,310.00
+D. $6,000.00
+
+17. A population of 1,200 bacteria doubles every 3 hours. How many bacteria are there after 12 hours?
+A. 4,800     B. 9,600     C. 19,200     D. 14,400
+
+18. Solve 4x − 9 = 2x + 15.
+A. 3     B. 12     C. 6     D. −12
+
+19. Find the mean of 12, 15, 9, 20, 14.
+A. 14     B. 15     C. 12     D. 70
+
+20. A car worth $24,000 loses 15% of its value each year. Which expression gives its value after t years?
+A. 24000(1.15)^t
+B. 24000(0.15)^t
+C. 24000 − 0.15t
+D. 24000(0.85)^t
+
+21. Solve x^2 − 2x − 8 = 0.
+A. x = −4 or x = 2     B. x = 4 or x = −2     C. x = 8 or x = −1     D. x = 2 or x = 4
+
+22. Use the table below. What is the average rate of change of g from x = 1 to x = 3?
+x    | 1 | 2  | 3
+g(x) | 4 | 10 | 22
+A. 18     B. 6     C. 11     D. 9
+
+23. A ball is thrown upward. Its height in feet after t seconds is h(t) = −16t^2 + 64t + 80. (8 pts)
+(a) Find h(2). (2 pts)
+(b) After how many seconds does the ball hit the ground? (4 pts)
+(c) What is the maximum height of the ball? (2 pts)
+
+Algebra 2 – Unit 4 Test                                   Page 3 of 4
+24. (8 pts) Solve the system 2x + y = 11 and x − y = 1. Show your work.
+
+
+
+25. (10 pts) Explain in complete sentences how the graph of y = (x + 2)^2 − 3 is related to the graph of y = x^2. Then sketch both graphs on the grid provided.
+
+
+
+Unit 4 Test — ANSWER KEY
+Part A
+1. B    2. A    3. C    4. D    5. D    6. B
+7. C    8. D    9. B    10. B   11. A   12. C
+13. x = 3 or x = −5
+14. (a) x = 1 or x = 5  (b) f(x) = (x − 3)^2 − 4  (c) −4
+Part B
+15. B   16. B   17. C   18. B   19. A   20. D   21. B   22. D
+23. (a) 144  (b) 5  (c) 144
+24. x = 4, y = 3
+25. Rubric: describes a shift 2 units left (4 pts); describes a shift 3 units down (4 pts); accurate sketch of both graphs (2 pts)
+
+Algebra 2 – Unit 4 Test                                   Page 4 of 4

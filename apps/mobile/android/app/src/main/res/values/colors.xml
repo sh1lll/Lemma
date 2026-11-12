@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Lemma palette (matches apps/web icon.svg). -->
+    <color name="lemma_bg">#FF1B1D1C</color>
+    <color name="lemma_surface">#FF262928</color>
+    <color name="lemma_coral">#FFF0A49A</color>
+    <color name="lemma_ink">#FFECEBE6</color>
+</resources>

@@ -1,0 +1,15 @@
+{
+  "name": "@lemma/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "lemma": "dist/lemma.mjs"
+  },
+  "scripts": {
+    "build": "rolldown -c rolldown.config.mjs"
+  },
+  "dependencies": {
+    "@lemma/sdk": "*"
+  }
+}

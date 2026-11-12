@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Declares app:queryPatterns, used by the custom App Actions capability in
+        res/xml/shortcuts.xml, so aapt2 can resolve the res-auto attribute.
+    -->
+    <attr name="queryPatterns" format="reference" />
+</resources>

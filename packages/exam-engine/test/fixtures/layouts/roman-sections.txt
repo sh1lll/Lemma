@@ -1,0 +1,26 @@
+Statistics Midterm
+Name: ____________
+
+Section I: Multiple Choice (2 points each)
+1. The mean of 4, 8, 12 is
+A. 6
+B. 8
+C. 10
+D. 12
+
+2. The median of 3, 9, 1, 7, 5 is
+A. 3
+B. 5
+C. 7
+D. 9
+
+Section II: Free Response
+3. A data set has values 2, 4, 4, 4, 5, 5, 7, 9. (6 points)
+(a) Find the mean. (2 points)
+(b) Find the median. (2 points)
+(c) Explain whether the data is skewed. (2 points)
+
+Answer Key
+1. B
+2. B
+3. (a) 5 (b) 4.5 (c) Rubric: mentions right skew

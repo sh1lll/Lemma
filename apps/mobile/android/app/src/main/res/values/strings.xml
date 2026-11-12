@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Lemma</string>
+    <string name="title_activity_main">Lemma</string>
+    <string name="package_name">app.lemma.mobile</string>
+    <string name="custom_url_scheme">app.lemma.mobile</string>
+
+    <!-- Text-selection menu and share sheet entry -->
+    <string name="process_text_label">Lemma</string>
+
+    <!-- Quick Settings tiles -->
+    <string name="tile_calculator_label">Lemma</string>
+    <string name="tile_calculator_subtitle">Calculator</string>
+    <string name="tile_voice_label">Lemma Voice</string>
+    <string name="tile_voice_subtitle">Speak a calculation</string>
+
+    <!-- Home-screen widget -->
+    <string name="widget_label">Lemma</string>
+    <string name="widget_description">Calculate or speak a problem in one tap.</string>
+    <string name="widget_calculate">Calculate</string>
+    <string name="widget_speak">Speak</string>
+    <string name="widget_open_content_description">Open Lemma</string>
+    <string name="widget_speak_content_description">Speak a calculation</string>
+
+    <!-- App shortcuts -->
+    <string name="shortcut_calculate_short">Calculate</string>
+    <string name="shortcut_calculate_long">Open the calculator</string>
+    <string name="shortcut_calculate_disabled">Calculator unavailable</string>
+    <string name="shortcut_voice_short">Voice</string>
+    <string name="shortcut_voice_long">Speak a calculation</string>
+    <string name="shortcut_voice_disabled">Voice unavailable</string>
+
+    <!-- App Actions: custom intent query patterns ($expression = the query) -->
+    <string-array name="lemma_calculate_queries">
+        <item>calculate $expression</item>
+        <item>compute $expression</item>
+        <item>solve $expression</item>
+        <item>what is $expression</item>
+    </string-array>
+    <!-- App Actions: OPEN_APP_FEATURE synonyms for the voice shortcut -->
+    <string-array name="lemma_voice_synonyms">
+        <item>voice</item>
+        <item>speak</item>
+        <item>voice calculation</item>
+        <item>dictation</item>
+    </string-array>
+</resources>

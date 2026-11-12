@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lemma mark (L and ∴) (same geometry as the web icon.svg), for the Quick Settings tile. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <path android:pathData="M36 32c3-3 6-2 6 3 0 16-1 33 0 46 0 7 4 9 10 9 10 0 20-1 30-4" android:strokeColor="#FFFFFFFF" android:strokeWidth="10" android:strokeLineCap="round" android:strokeLineJoin="round" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M68,50a8,8 0 1,1 16,0a8,8 0 1,1 -16,0z" />
+</vector>

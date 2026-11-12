@@ -1,0 +1,25 @@
+Alright, hi everyone, let's get going. Today we're going to cover the Pythagorean theorem and a few things in geometry that come out of it. This is one of the oldest results in mathematics and you will use it constantly, in physics, in engineering, even in video games.
+
+So first, some vocabulary. A right triangle is a triangle with one angle of exactly ninety degrees. The two sides that form the right angle are called the legs. The longest side, opposite the right angle, which we call the hypotenuse. It's always the longest side of a right triangle, uh, always.
+
+Now the theorem itself. The Pythagorean theorem says that in a right triangle, a squared plus b squared equals c squared, where a and b are the legs and c is the hypotenuse. That's it. That's the whole statement. The key idea is that the areas of the squares on the two legs add up to the area of the square on the hypotenuse.
+
+Let's do an example. Suppose the legs are three and four. Then three squared plus four squared is nine plus sixteen, which is twenty five. So c squared is twenty five, and c is five. This three four five triangle shows up everywhere, so it's worth memorizing.
+
+For instance, a ladder that is thirteen feet long leans against a wall, and the bottom is five feet from the wall. How high does it reach? Well, five squared plus b squared equals thirteen squared. Twenty five plus b squared is one hundred sixty nine, so b squared is one hundred forty four, and b is twelve feet.
+
+Next, let's talk about why the theorem is true. There are hundreds of proofs, but here's my favourite one. Take a big square with side length a plus b. Inside it, place four copies of the right triangle so that they leave a tilted square in the middle with side c. The area of the big square is a plus b, all squared. It's also four triangles plus the middle square, so four times one half a b plus c squared. When you expand and cancel, you get a squared plus b squared equals c squared. Remember, a proof explains why, not just what.
+
+Moving on to the distance formula. The distance formula is just the Pythagorean theorem in the coordinate plane. If you have two points, the horizontal difference and the vertical difference are the legs of a right triangle. The distance d equals the square root of x two minus x one, all squared, plus y two minus y one, all squared. Notice that it doesn't matter which point you call the first one, because squaring removes the sign.
+
+For example, the distance between the point one comma two and the point four comma six. The horizontal difference is three, the vertical difference is four, and the distance is the square root of nine plus sixteen, which is five. Our old friend the three four five triangle again.
+
+Now let's look at the converse. The converse of the Pythagorean theorem means that if the sides of a triangle satisfy a squared plus b squared equals c squared, then the triangle must be a right triangle. This is how builders check that a corner is square. They measure three feet along one wall, four feet along the other, and check that the diagonal is five feet.
+
+A Pythagorean triple is defined as three positive whole numbers that satisfy the equation. Three four five is a triple, five twelve thirteen is a triple, and eight fifteen seventeen is a triple. And if you multiply a triple by any whole number, you get another triple, so six eight ten works too.
+
+Part three, a quick look at special right triangles. In a forty five forty five ninety triangle the legs are equal, so the hypotenuse is the leg times the square root of two. In a thirty sixty ninety triangle the short leg is half the hypotenuse. These come up all the time in trigonometry, so it's important to know them.
+
+One more formula you should have. The area of a triangle is one half times base times height. For a right triangle, the legs are the base and the height, so the area is one half a b.
+
+In summary, the Pythagorean theorem relates the three sides of a right triangle, the distance formula is the same idea on a coordinate grid, and the converse lets you test whether an angle is a right angle. Please read section four point one and do the odd problems. Okay, that's it for today, thanks everyone.

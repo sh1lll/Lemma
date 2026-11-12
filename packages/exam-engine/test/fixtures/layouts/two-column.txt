@@ -1,0 +1,13 @@
+Geometry Quiz 3                       Name: ____________
+Time: 25 minutes
+
+1. What is the area of a circle       2. Find the slope of the line
+with radius 3?                        through (1, 2) and (3, 8).
+A. 6π    B. 9π                        A. 2    B. 3
+C. 12π   D. 18π                       C. 4    D. 6
+
+3. Solve 2x + 5 = 17.
+A. 4   B. 5   C. 6   D. 7
+
+Answer Key
+1. B  2. B  3. C

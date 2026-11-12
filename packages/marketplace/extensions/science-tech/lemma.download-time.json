@@ -1,0 +1,49 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.download-time",
+  "name": "Download time",
+  "description": "How long a download takes from file size (GB) and connection speed (Mbps).",
+  "kind": "formula",
+  "templates": [
+    "download {size} gb at {speed} mbps",
+    "download time {size} gb {speed} mbps",
+    "how long to download {size} gb at {speed} mbps"
+  ],
+  "inputs": [
+    {
+      "name": "size",
+      "label": "Size",
+      "unit": "GB",
+      "min": 0
+    },
+    {
+      "name": "speed",
+      "label": "Speed",
+      "unit": "Mbps",
+      "min": 0.001
+    }
+  ],
+  "formula": "size * 8000 / speed / 60",
+  "output": {
+    "label": "Time",
+    "unit": "min",
+    "decimals": 1
+  },
+  "lines": [
+    {
+      "label": "Seconds",
+      "formula": "size * 8000 / speed",
+      "decimals": 0,
+      "unit": "s"
+    }
+  ],
+  "examples": [
+    {
+      "input": "download 50 gb at 300 mbps",
+      "expect": "22.2"
+    }
+  ]
+}

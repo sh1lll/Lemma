@@ -1,0 +1,27 @@
+Okay so welcome to intro stats. Um today we're going to talk about describing data, which means measures of center and measures of spread, and then we'll get to the normal distribution and z scores. So let's jump in.
+
+The first thing you do with any data set is try to summarize it with one number that represents the middle. The mean is defined as the sum of all the values divided by the number of values. So if you have n values, you add them up and divide by n. People also call this the average.
+
+Let's try a small example. Say our data is two, four, four, five, and ten. The sum is two plus four plus four plus five plus ten, which is twenty five. There are five values, so the mean is twenty five over five, which is five.
+
+The median is the middle value when the data are sorted. In our example the sorted data is two, four, four, five, ten, so the median is four. The mode means the value that appears most often, which here is also four. Remember, the mean is sensitive to outliers, but the median is not. If I change that ten to a thousand, the mean jumps up a lot but the median stays at four.
+
+So, like, which one should you use? The key idea is that for skewed data or data with outliers, the median is usually a better summary of a typical value. For symmetric data, the mean and median are about the same, and the mean has nicer mathematical properties.
+
+Next, measures of spread. Knowing the center isn't enough, you also need to know how spread out the data is. The simplest measure is the range, which is the maximum minus the minimum. In our example the range is ten minus two, which is eight. But the range only uses two numbers, so it's very sensitive to outliers.
+
+A better measure is the variance. The variance is defined as the average of the squared deviations from the mean. A deviation is how far a value is from the mean. For a sample, we divide by n minus one instead of n, and that's called Bessel's correction. Don't worry too much about why right now, just remember that the sample variance divides by n minus one.
+
+The standard deviation is the square root of the variance. We like the standard deviation because it's in the same units as the data. If the data are in centimeters, the variance is in square centimeters, which is weird, but the standard deviation is back in centimeters.
+
+For example, take the values two, four, and six. The mean is four. The deviations are negative two, zero, and two. The squared deviations are four, zero, and four, which add up to eight. Divide by n minus one, which is two, and the sample variance is four. So the standard deviation is the square root of four, which is two.
+
+Now let's move on to the normal distribution. A lot of real data, like heights or measurement errors, follow a bell shaped curve called the normal distribution. It's symmetric, it's centered at the mean mu, and its spread is controlled by the standard deviation sigma. The important thing to remember is the sixty eight ninety five ninety nine point seven rule. About sixty eight percent of the data falls within one standard deviation of the mean, about ninety five percent within two, and about ninety nine point seven percent within three.
+
+Part four, z scores. A z score tells you how many standard deviations a value is from the mean. The z score equals x minus mu, all over sigma. A positive z score means the value is above the mean, and a negative z score means it's below.
+
+Let's say the exam scores have a mean of seventy and a standard deviation of ten, and you scored eighty five. Then z equals eighty five minus seventy, all over ten, which is one point five. So you're one and a half standard deviations above the mean, which is pretty good.
+
+Z scores let you compare things on different scales. For instance, if you got a z score of one point five in stats and a z score of two in chemistry, you did relatively better in chemistry, even if the raw score was lower.
+
+So in summary, the mean and median describe the center, the variance and standard deviation describe the spread, and z scores tell you where a single value sits relative to the distribution. Read chapter two and do the practice problems on the course site. Any questions? Alright, see you next week.

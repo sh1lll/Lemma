@@ -1,0 +1,55 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.trip-fuel-us",
+  "name": "Trip gas cost (US)",
+  "description": "Gas cost of a trip from miles, miles per gallon and price per gallon.",
+  "kind": "formula",
+  "templates": [
+    "gas cost {miles} miles at {mpg} mpg {price} per gallon",
+    "gas for {miles} miles {mpg} mpg at {price}",
+    "trip gas {miles} {mpg} {price}"
+  ],
+  "inputs": [
+    {
+      "name": "miles",
+      "label": "Distance",
+      "unit": "mi",
+      "min": 0
+    },
+    {
+      "name": "mpg",
+      "label": "Fuel economy",
+      "unit": "mpg",
+      "min": 0.1
+    },
+    {
+      "name": "price",
+      "label": "Gas price",
+      "unit": "$/gal",
+      "min": 0
+    }
+  ],
+  "formula": "miles / mpg * price",
+  "output": {
+    "label": "Cost",
+    "unit": "$",
+    "decimals": 2
+  },
+  "lines": [
+    {
+      "label": "Gas used",
+      "formula": "miles / mpg",
+      "decimals": 1,
+      "unit": "gal"
+    }
+  ],
+  "examples": [
+    {
+      "input": "gas cost 300 miles at 28 mpg 3.49 per gallon",
+      "expect": "37.39"
+    }
+  ]
+}

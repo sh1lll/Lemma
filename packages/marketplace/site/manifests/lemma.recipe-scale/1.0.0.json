@@ -1,0 +1,56 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.recipe-scale",
+  "name": "Recipe scaler",
+  "description": "Scales an ingredient amount from the servings a recipe makes to the servings you want.",
+  "kind": "formula",
+  "templates": [
+    "scale {amount} from {serves} to {want} servings",
+    "scale {amount} from {serves} servings to {want}",
+    "recipe {amount} for {serves} servings to {want}",
+    "scale recipe {amount} {serves} {want}"
+  ],
+  "inputs": [
+    {
+      "name": "amount",
+      "label": "Amount",
+      "min": 0
+    },
+    {
+      "name": "serves",
+      "label": "Recipe serves",
+      "min": 0.01
+    },
+    {
+      "name": "want",
+      "label": "Servings wanted",
+      "min": 0
+    }
+  ],
+  "formula": "amount * want / serves",
+  "output": {
+    "label": "Scaled amount",
+    "decimals": 2
+  },
+  "lines": [
+    {
+      "label": "Factor",
+      "formula": "want / serves",
+      "decimals": 3,
+      "unit": "×"
+    }
+  ],
+  "examples": [
+    {
+      "input": "scale 250 from 4 to 6 servings",
+      "expect": "375.00"
+    },
+    {
+      "input": "scale 200 from 3 to 4 servings",
+      "expect": "266.67"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.bmi",
+  "name": "BMI",
+  "description": "Body-mass index from weight and height, with the WHO adult category.",
+  "kind": "formula",
+  "templates": [
+    "bmi {weight} kg {height} m",
+    "bmi for {weight} kg and {height} m",
+    "bmi {weight} {height}",
+    "body mass index {weight} kg {height} m"
+  ],
+  "inputs": [
+    {
+      "name": "weight",
+      "label": "Weight",
+      "unit": "kg",
+      "min": 1,
+      "max": 700
+    },
+    {
+      "name": "height",
+      "label": "Height",
+      "unit": "m",
+      "min": 0.3,
+      "max": 3
+    }
+  ],
+  "formula": "weight / height^2",
+  "output": {
+    "label": "BMI",
+    "unit": "kg/m²",
+    "decimals": 1,
+    "bands": [
+      {
+        "max": 18.4999,
+        "label": "Underweight"
+      },
+      {
+        "max": 24.9999,
+        "label": "Healthy weight"
+      },
+      {
+        "max": 29.9999,
+        "label": "Overweight"
+      },
+      {
+        "max": 1000000000,
+        "label": "Obese"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "input": "bmi 70 kg 1.75 m",
+      "expect": "22.9"
+    }
+  ]
+}

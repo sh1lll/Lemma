@@ -1,0 +1,23 @@
+Quantitative Reasoning — Practice Set (original sample questions)
+Directions for Questions 1 to 4: Compare Quantity A with Quantity B and pick the statement that describes them.
+(A) Quantity A is greater.
+(B) Quantity B is greater.
+(C) The two quantities are equal.
+(D) The relationship cannot be determined from the information given.
+
+1. x = 3y and y = 4
+Quantity A: x          Quantity B: 10
+
+2. Quantity A: 40% of 300          Quantity B: 120
+
+3. x^2 = 16
+Quantity A: x          Quantity B: 0
+
+4. Quantity A: 3/4 + 1/6          Quantity B: 1
+
+5. Which of the following integers are factors of 36? Select all that apply.
+(A) 4    (B) 5    (C) 9    (D) 12    (E) 16
+
+6. What is the mean of 20, 22, 3, 5, 28, 18? Enter your answer in the box.
+
+Answers: 1. A  2. C  3. D  4. B  5. A, C, D  6. 16

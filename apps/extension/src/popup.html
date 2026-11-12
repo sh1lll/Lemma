@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemma</title>
+  </head>
+  <body class="popup">
+    <main id="app" class="stack" style="width: 340px; padding: 14px">
+      <header class="row" style="justify-content: space-between">
+        <div class="brand"><img src="/icons/icon-32.png" alt="" /><h1>Lemma</h1></div>
+        <button class="btn" id="options" type="button" aria-label="Settings" title="Settings">Settings</button>
+      </header>
+      <section id="calc" aria-label="Calculator"></section>
+      <div class="stack" style="gap: 8px">
+        <button class="btn primary" id="screen" type="button">Solve what's on screen</button>
+        <button class="btn" id="panel" type="button">Open side panel</button>
+      </div>
+      <p class="muted" id="status" role="status" style="margin: 0; font-size: 12px"></p>
+      <footer class="row" style="justify-content: space-between; font-size: 12px">
+        <a id="full" target="_blank" rel="noopener">Open the full app</a>
+        <span class="muted">Computed on this device</span>
+      </footer>
+    </main>
+    <script type="module" src="./popup/popup.ts"></script>
+  </body>
+</html>

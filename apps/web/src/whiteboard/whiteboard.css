@@ -1,0 +1,582 @@
+/* Whiteboard engine chrome. Colours, fonts and corners come from the app's look tokens (style.css / look.ts). */
+.wb-root {
+  --wb-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 6px 20px rgb(0 0 0 / 0.08);
+  --wb-r: var(--radius, 18px);
+  --wb-rs: var(--radius-sm, 12px);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 14px;
+  isolation: isolate;
+  user-select: none;
+  -webkit-user-select: none;
+  overscroll-behavior: none;
+}
+:root[data-theme='dark'] .wb-root {
+  --wb-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .wb-root {
+    --wb-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
+  }
+}
+
+.wb-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  touch-action: none;
+  outline: none;
+  cursor: crosshair;
+}
+.wb-root[data-tool='select'] .wb-canvas {
+  cursor: default;
+}
+.wb-root[data-tool='hand'] .wb-canvas {
+  cursor: grab;
+}
+.wb-root.is-panning .wb-canvas {
+  cursor: grabbing;
+}
+.wb-root[data-tool='text'] .wb-canvas {
+  cursor: text;
+}
+.wb-root[data-tool='eraser'] .wb-canvas {
+  cursor: none;
+}
+
+/* ---------- floating panels ---------- */
+.wb-toolbar,
+.wb-panel,
+.wb-command-row,
+.wb-pop {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--wb-shadow);
+}
+
+.wb-toolbar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: var(--wb-r);
+  max-width: calc(100% - 24px);
+}
+.wb-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.wb-sep {
+  width: 1px;
+  height: 22px;
+  margin: 0 4px;
+  background: var(--line);
+  flex: none;
+}
+
+.wb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 7px;
+  border: 0;
+  border-radius: var(--wb-rs);
+  background: transparent;
+  color: var(--muted);
+  flex: none;
+  transition: background-color 0.12s, color 0.12s;
+}
+.wb-btn:hover:not(:disabled) {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+.wb-btn.is-on,
+.wb-btn[aria-checked='true'] {
+  background: var(--surface-2);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.wb-toolbar .wb-btn.is-on {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: none;
+}
+.wb-btn:disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+.wb-swatch {
+  width: 28px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.wb-swatch span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--sw, var(--ink));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 12%, transparent);
+  transition: transform 0.12s;
+}
+.wb-swatch[aria-checked='true'] span {
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 3.5px var(--sw, var(--ink));
+}
+.wb-swatch:hover span {
+  transform: scale(1.12);
+}
+
+.wb-width span {
+  width: var(--d);
+  height: var(--d);
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.wb-more {
+  position: relative;
+}
+.wb-more-btn svg {
+  width: 14px;
+}
+.wb-pop {
+  position: absolute;
+  z-index: 5;
+  border-radius: var(--wb-rs);
+  padding: 4px;
+}
+.wb-more-menu {
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 170px;
+}
+.wb-menuitem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: calc(var(--wb-rs) - 3px);
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+}
+.wb-menuitem svg {
+  color: var(--muted);
+}
+.wb-menuitem:hover,
+.wb-menuitem.is-on {
+  background: var(--surface-2);
+}
+
+/* ---------- top right ---------- */
+.wb-topright {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.wb-panel {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: var(--wb-r);
+}
+.wb-zoom-pct {
+  min-width: 54px;
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+}
+.wb-boards-btn {
+  max-width: 220px;
+}
+.wb-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--ink);
+  padding-left: 4px;
+}
+.wb-boards {
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(320px, calc(100vw - 24px));
+  padding: 8px;
+  max-height: min(70vh, 520px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.wb-boards[hidden] {
+  display: none;
+}
+.wb-rename {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: calc(var(--wb-rs) - 3px);
+  padding: 8px 10px;
+  font-weight: 600;
+  user-select: text;
+}
+.wb-board-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  display: grid;
+  gap: 2px;
+}
+.wb-board {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: calc(var(--wb-rs) - 3px);
+}
+.wb-board:hover,
+.wb-board.is-current {
+  background: var(--surface-2);
+}
+.wb-board-open {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+  padding: 8px 10px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+.wb-board-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.wb-board-time {
+  font-size: 12px;
+  color: var(--muted);
+}
+.wb-board-del {
+  opacity: 0.6;
+}
+.wb-board:hover .wb-board-del,
+.wb-board-del:focus-visible {
+  opacity: 1;
+}
+.wb-board.is-confirm {
+  padding: 6px 6px 6px 10px;
+  background: var(--surface-2);
+}
+.wb-confirm-text {
+  flex: 1;
+  color: var(--ink);
+}
+.wb-danger {
+  color: var(--warn);
+  font-weight: 600;
+}
+.wb-new-board {
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 calc(var(--wb-rs) - 3px) calc(var(--wb-rs) - 3px);
+  padding-top: 10px;
+}
+.wb-boards-err {
+  margin: 0;
+  padding: 6px 10px;
+  color: var(--warn);
+  font-size: 12px;
+}
+
+/* ---------- text editor overlay ---------- */
+.wb-editor {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  padding: 0 4px;
+  border: 1px dashed var(--accent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  font-family: var(--sans);
+  line-height: 1.3;
+  resize: none;
+  overflow: hidden;
+  outline: none;
+  white-space: pre;
+  user-select: text;
+  -webkit-user-select: text;
+  transform: translate(-4px, 0);
+}
+
+/* ---------- command bar ---------- */
+.wb-command {
+  position: absolute;
+  left: 50%;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 2;
+  width: min(640px, calc(100% - 24px));
+  margin: 0;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+.wb-command-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 999px;
+}
+.wb-command-row:focus-within {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+}
+.wb-command-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  padding: 8px 0;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.wb-command-input::placeholder {
+  color: var(--faint);
+}
+.wb-mic {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.wb-mic:hover {
+  border-color: var(--faint);
+}
+.wb-mic.is-listening {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  animation: wb-pulse 1.8s ease-in-out infinite;
+}
+@keyframes wb-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wb-mic.is-listening {
+    animation: none;
+  }
+}
+:root[data-motion='calm'] .wb-mic.is-listening {
+  animation: none;
+}
+.wb-status {
+  min-height: 18px;
+  max-width: 100%;
+  padding: 0 12px;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.wb-status.is-shown {
+  opacity: 1;
+  transition-duration: 0.12s;
+}
+
+/* "Done": the way out, labelled and set apart from the board tools. */
+.wb-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 16px 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.18);
+  flex: none;
+  cursor: pointer;
+}
+.wb-done svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+.wb-done:hover {
+  opacity: 0.88;
+}
+.wb-done:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- narrow: zoom and boards drop below the toolbar ---------- */
+@media (max-width: 1100px) {
+  .wb-topright {
+    top: 62px;
+  }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 720px) {
+  .wb-toolbar {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    max-width: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .wb-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Undo and redo first, where a thumb finds them without scrolling; the strip fades where more tools continue. */
+  .wb-toolbar .wb-history {
+    order: -2;
+  }
+  .wb-toolbar .wb-sep-history {
+    order: -1;
+  }
+  .wb-toolbar {
+    padding-right: 20px;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+  }
+  .wb-topright {
+    top: 60px;
+    right: 8px;
+    gap: 6px;
+  }
+  .wb-zoom-pct {
+    min-width: 46px;
+  }
+  .wb-title {
+    display: none;
+  }
+  .wb-btn {
+    min-width: 36px;
+    height: 36px;
+  }
+  /* The "more shapes" menu would be clipped by the scrolling strip: show those shapes inline. */
+  .wb-more-btn {
+    display: none;
+  }
+  .wb-more-menu,
+  .wb-more-menu[hidden] {
+    display: flex !important;
+    position: static;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    min-width: 0;
+    gap: 2px;
+  }
+  .wb-more-menu .wb-menuitem {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    border-radius: var(--wb-rs);
+  }
+  .wb-more-menu .wb-menuitem span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .wb-more-menu .wb-menuitem.is-on {
+    background: var(--accent);
+  }
+  .wb-more-menu .wb-menuitem.is-on svg {
+    color: var(--accent-ink);
+  }
+  .wb-command {
+    width: calc(100% - 16px);
+    bottom: max(10px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ---------- "saving unavailable" notice (stays up while the board can't be saved) ---------- */
+.wb-notice {
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  max-width: min(560px, calc(100% - 24px));
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--warn, #c2410c);
+  background: var(--surface, #fff);
+  color: var(--warn, #c2410c);
+  font-size: 12.5px;
+  line-height: 1.35;
+  text-align: center;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.12);
+}
+.wb-notice[hidden] {
+  display: none;
+}
+@media (max-width: 1100px) {
+  .wb-notice {
+    top: 112px;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.roman",
+  "name": "Roman numerals",
+  "description": "Writes a whole number from 1 to 3999 in Roman numerals. (Example of a sandboxed script extension.)",
+  "kind": "script",
+  "templates": [
+    "{n} in roman numerals",
+    "roman numerals for {n}",
+    "{n} in roman"
+  ],
+  "inputs": [
+    {
+      "name": "n",
+      "label": "Number"
+    }
+  ],
+  "permissions": [],
+  "script": "function run(inputs) {\n  const n = Number(inputs.n);\n  if (!Number.isInteger(n) || n < 1 || n > 3999) return { display: 'Roman numerals cover 1 to 3999', notes: ['Whole numbers only'] };\n  const table = [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];\n  let left = n, out = '';\n  for (const [v, s] of table) while (left >= v) { out += s; left -= v; }\n  return { display: out, value: n };\n}",
+  "examples": [
+    {
+      "input": "2026 in roman numerals",
+      "expect": "MMXXVI"
+    }
+  ]
+}

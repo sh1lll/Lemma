@@ -1,0 +1,67 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.running-pace",
+  "name": "Running pace",
+  "description": "Pace per kilometre and average speed from a distance in km and a time in minutes, plus the marathon time at that pace.",
+  "kind": "formula",
+  "templates": [
+    "pace for {distance} km in {minutes} min",
+    "pace for {distance} km in {minutes} minutes",
+    "running pace {distance} km {minutes} min",
+    "pace {distance} km {minutes}"
+  ],
+  "inputs": [
+    {
+      "name": "distance",
+      "label": "Distance",
+      "unit": "km",
+      "min": 0.01,
+      "max": 1000
+    },
+    {
+      "name": "minutes",
+      "label": "Time",
+      "unit": "min",
+      "min": 0.01
+    }
+  ],
+  "formula": "minutes / distance",
+  "output": {
+    "label": "Pace",
+    "unit": "min/km",
+    "decimals": 2
+  },
+  "lines": [
+    {
+      "label": "Seconds per km",
+      "formula": "minutes * 60 / distance",
+      "decimals": 0,
+      "unit": "s"
+    },
+    {
+      "label": "Speed",
+      "formula": "distance / (minutes / 60)",
+      "decimals": 1,
+      "unit": "km/h"
+    },
+    {
+      "label": "Marathon at this pace",
+      "formula": "minutes / distance * 42.195 / 60",
+      "decimals": 2,
+      "unit": "h"
+    }
+  ],
+  "examples": [
+    {
+      "input": "pace for 10 km in 52.5 min",
+      "expect": "5.25"
+    },
+    {
+      "input": "running pace 5 km 27 min",
+      "expect": "5.40"
+    }
+  ]
+}

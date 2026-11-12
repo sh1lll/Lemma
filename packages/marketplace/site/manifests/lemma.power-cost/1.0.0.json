@@ -1,0 +1,60 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.power-cost",
+  "name": "Appliance running cost",
+  "description": "Monthly electricity cost of a device from watts, hours per day and price per kWh.",
+  "kind": "formula",
+  "templates": [
+    "running cost {watts} w {hours} hours a day at {price} per kwh",
+    "power cost {watts} w {hours} h {price}",
+    "electricity {watts} watts {hours} hours {price} kwh"
+  ],
+  "inputs": [
+    {
+      "name": "watts",
+      "label": "Power",
+      "unit": "W",
+      "min": 0
+    },
+    {
+      "name": "hours",
+      "label": "Use",
+      "unit": "h/day",
+      "min": 0,
+      "max": 24
+    },
+    {
+      "name": "price",
+      "label": "Price",
+      "unit": "per kWh",
+      "min": 0
+    }
+  ],
+  "formula": "watts / 1000 * hours * 30 * price",
+  "output": {
+    "label": "Per month (30 days)",
+    "decimals": 2
+  },
+  "lines": [
+    {
+      "label": "Energy per month",
+      "formula": "watts / 1000 * hours * 30",
+      "decimals": 1,
+      "unit": "kWh"
+    },
+    {
+      "label": "Per year",
+      "formula": "watts / 1000 * hours * 365 * price",
+      "decimals": 2
+    }
+  ],
+  "examples": [
+    {
+      "input": "running cost 150 w 8 hours a day at 0.30 per kwh",
+      "expect": "10.80"
+    }
+  ]
+}

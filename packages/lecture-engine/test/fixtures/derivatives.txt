@@ -1,0 +1,27 @@
+Okay, good morning everyone. Um, so today we're going to talk about derivatives, and by the end of the class you should be able to take the derivative of any polynomial and use the chain rule. So let's get started.
+
+So the first question is, what is a derivative? The derivative of a function is defined as the instantaneous rate of change of the function at a point. Geometrically, it's the slope of the tangent line to the graph at that point. You know, if you zoom in far enough on a smooth curve, it looks like a straight line, and the slope of that line is the derivative.
+
+Formally, the derivative is defined as the limit of the difference quotient as h goes to zero. So we take f of x plus h minus f of x, all over h, and we let h shrink to zero. The difference quotient is the slope of a secant line, and the derivative is what that slope approaches. Remember, the derivative is a limit, it's not just a division.
+
+Let's do an example. Suppose f of x equals x squared. Then f of x plus h is x squared plus two x h plus h squared. Subtract x squared and you get two x h plus h squared. Divide by h and you get two x plus h. Now let h go to zero, and we are left with two x. So the derivative of x squared is two x. That's our first derivative computed from the definition.
+
+Okay, so now let's talk about the power rule. Doing limits every time is slow, so we want shortcuts. The power rule says that the derivative of x to the n is n times x to the n minus one. So, like, you bring the exponent down in front and you subtract one from the exponent. The key idea is that the power rule turns differentiation of polynomials into simple arithmetic.
+
+For example, the derivative of x cubed is three x squared. The derivative of x to the fifth is five x to the fourth. And the derivative of a constant is zero, because a constant function is flat, it has no slope at all. Remember that the derivative of a constant is always zero.
+
+We also have the sum rule, which says the derivative of a sum is the sum of the derivatives, and the constant multiple rule, which says that constants just come along for the ride. So if f of x equals three x squared plus five x plus two, then the derivative is six x plus five. Let's check that. Three times two x is six x, five times one is five, and the two disappears because it's a constant.
+
+Um, let's try one more. Let's say g of x equals four x cubed minus two x. Then the derivative is twelve x squared minus two. Twelve comes from four times three, and the exponent drops from three to two.
+
+Moving on to the chain rule. This is the most important rule in the whole unit, so pay attention. A composite function is when one function is plugged into another function, like the sine of x squared, or x squared plus one, all to the tenth power. The chain rule says that the derivative of f of g of x is f prime of g of x times g prime of x. In words, the derivative of the outside, evaluated at the inside, times the derivative of the inside.
+
+For example, take h of x equals x squared plus one, all cubed. The outside function is something cubed, and the inside is x squared plus one. The derivative of the outside is three times the inside squared, and the derivative of the inside is two x. So the answer is three times x squared plus one squared times two x, which simplifies to six x times x squared plus one squared.
+
+A lot of students forget to multiply by the derivative of the inside. That's the number one mistake on exams. So, um, remember, always multiply by the derivative of the inside function.
+
+Now let's look at derivatives of trig functions briefly. The derivative of sine x is cosine x, and the derivative of cosine x is negative sine x. Combined with the chain rule, the derivative of sine of x squared is cosine of x squared times two x.
+
+Finally, a word on notation. We write f prime of x, or d y d x, which is read as dee y dee x. The notation d y d x means the derivative of y with respect to x. These notations mean exactly the same thing, so don't let them confuse you.
+
+So in summary, the derivative measures the instantaneous rate of change, the power rule handles polynomials, and the chain rule handles composite functions by multiplying by the derivative of the inside. For homework, please do problems one through twenty in section three point two. Any questions? Okay, see you on Thursday.

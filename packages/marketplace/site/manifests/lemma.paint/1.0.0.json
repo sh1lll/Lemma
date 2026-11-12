@@ -1,0 +1,57 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.paint",
+  "name": "Paint needed",
+  "description": "Litres of paint for a wall area, number of coats and coverage per litre.",
+  "kind": "formula",
+  "templates": [
+    "paint for {area} m2 {coats} coats at {coverage} m2 per litre",
+    "paint {area} m2 {coats} coats {coverage}",
+    "paint needed {area} {coats} {coverage}"
+  ],
+  "inputs": [
+    {
+      "name": "area",
+      "label": "Area",
+      "unit": "m²",
+      "min": 0
+    },
+    {
+      "name": "coats",
+      "label": "Coats",
+      "min": 1,
+      "max": 10,
+      "default": 2
+    },
+    {
+      "name": "coverage",
+      "label": "Coverage",
+      "unit": "m²/L",
+      "min": 0.1,
+      "default": 10
+    }
+  ],
+  "formula": "area * coats / coverage",
+  "output": {
+    "label": "Paint",
+    "unit": "L",
+    "decimals": 1
+  },
+  "lines": [
+    {
+      "label": "With 10% spare",
+      "formula": "area * coats / coverage * 1.1",
+      "decimals": 1,
+      "unit": "L"
+    }
+  ],
+  "examples": [
+    {
+      "input": "paint for 45 m2 2 coats at 12 m2 per litre",
+      "expect": "7.5"
+    }
+  ]
+}

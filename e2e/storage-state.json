@@ -1,0 +1,9 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:4178",
+      "localStorage": [{ "name": "lemma.settings.v1", "value": "{\"warmOnStart\":false}" }]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@lemma/extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Lemma browser extension (Manifest V3): popup calculator, side panel with steps and lessons, selection actions, on-device screen OCR.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --config vitest.config.ts",
+    "e2e": "node scripts/build.mjs && playwright test --config playwright.config.ts",
+    "safari": "xcrun safari-web-extension-converter dist/chrome --project-location dist/safari --app-name Lemma --bundle-identifier app.lemma.extension --swift --copy-resources --no-open --no-prompt --force"
+  },
+  "dependencies": {
+    "@lemma/graph-engine": "*",
+    "@lemma/math-core": "*",
+    "@lemma/practice-engine": "*",
+    "@lemma/runtime": "*",
+    "@lemma/tutor-engine": "*",
+    "katex": "^0.16.25",
+    "tesseract.js": "^5.1.1",
+    "tesseract.js-core": "^5.1.1"
+  }
+}

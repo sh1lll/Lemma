@@ -1,0 +1,9 @@
+{
+  "appId": "app.lemma.mobile",
+  "appName": "Lemma",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never",
+    "scheme": "Lemma"
+  }
+}

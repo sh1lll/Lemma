@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agenda harness (dev only)</title>
+  </head>
+  <body>
+    <!-- Dev-only harness for src/agenda. Not part of the production build (not a rollup input).
+         ?now=2026-10-29T12:00&tz=America/New_York pins the clock; ?look=comfy|paper|...&theme=light|dark sets the look. -->
+    <nav id="bar" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 12px 16px; font: 14px system-ui">
+      <button id="theme" type="button">Toggle theme</button>
+      <button id="seed" type="button">Seed sample data</button>
+      <button id="solve" type="button">Solve 1 derivative</button>
+      <button id="reset" type="button">Clear saved data</button>
+      <span id="toast" role="status" aria-live="polite"></span>
+    </nav>
+    <main id="app"></main>
+    <script type="module" src="/src/agenda/harness.ts"></script>
+  </body>
+</html>

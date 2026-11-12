@@ -1,0 +1,69 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.concrete-slab",
+  "name": "Concrete for a slab",
+  "description": "Concrete volume for a rectangular slab from length and width (m) and thickness (cm), with 10% extra and the approximate weight.",
+  "kind": "formula",
+  "templates": [
+    "concrete slab {length} m {width} m {depth} cm",
+    "concrete for {length} m by {width} m {depth} cm thick",
+    "concrete {length} m x {width} m x {depth} cm",
+    "concrete slab {length} {width} {depth}"
+  ],
+  "inputs": [
+    {
+      "name": "length",
+      "label": "Length",
+      "unit": "m",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "name": "width",
+      "label": "Width",
+      "unit": "m",
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "name": "depth",
+      "label": "Thickness",
+      "unit": "cm",
+      "min": 0,
+      "max": 500
+    }
+  ],
+  "formula": "length * width * depth / 100",
+  "output": {
+    "label": "Concrete",
+    "unit": "m³",
+    "decimals": 2
+  },
+  "lines": [
+    {
+      "label": "With 10% extra",
+      "formula": "length * width * depth / 100 * 1.1",
+      "decimals": 2,
+      "unit": "m³"
+    },
+    {
+      "label": "Weight (about 2,400 kg/m³)",
+      "formula": "length * width * depth / 100 * 2400",
+      "decimals": 0,
+      "unit": "kg"
+    }
+  ],
+  "examples": [
+    {
+      "input": "concrete slab 4 m 3 m 10 cm",
+      "expect": "1.20"
+    },
+    {
+      "input": "concrete for 6 m by 2.5 m 15 cm thick",
+      "expect": "2.25"
+    }
+  ]
+}

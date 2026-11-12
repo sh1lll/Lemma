@@ -1,0 +1,15 @@
+Vocabulary Quiz: Functions
+Name: __________
+
+Matching. Write the letter of the definition next to each term.
+1. Domain            A. The set of all outputs
+2. Range             B. The set of all inputs
+3. Slope             C. Rise over run
+4. Intercept         D. Where a graph crosses an axis
+
+Fill in the blank.
+5. The slope of y = 4x - 1 is ______.
+6. If f(x) = x^2, then f(3) = ______.
+
+Answer Key
+1. B 2. A 3. C 4. D 5. 4 6. 9

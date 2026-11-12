@@ -1,0 +1,41 @@
+{
+  "name": "@lemma/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node ../../scripts/prune-dist.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/kalam": "^5.3.0",
+    "@lemma/agenda-engine": "*",
+    "@lemma/ai-engine": "*",
+    "@lemma/currency-engine": "*",
+    "@lemma/date-engine": "*",
+    "@lemma/exam-engine": "*",
+    "@lemma/geometry-engine": "*",
+    "@lemma/graph-engine": "*",
+    "@lemma/lecture-engine": "*",
+    "@lemma/math-core": "*",
+    "@lemma/notebook-engine": "*",
+    "@lemma/physics-engine": "*",
+    "@lemma/plugin-engine": "*",
+    "@lemma/practice-engine": "*",
+    "@lemma/runtime": "*",
+    "@lemma/stats-engine": "*",
+    "@lemma/steps-engine": "*",
+    "@lemma/symbolic-engine": "*",
+    "@lemma/sync-engine": "*",
+    "@lemma/tutor-engine": "*",
+    "katex": "^0.16.25",
+    "pdfjs-dist": "^4.10.38",
+    "tesseract.js": "^5.1.1",
+    "@lemma/marketplace": "*"
+  },
+  "devDependencies": {
+    "@huggingface/transformers": "^4.3.2"
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "name": "@lemma/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lemma desktop shell: global hotkey, floating quick-calculator overlay, tray.",
+  "main": "main.mjs",
+  "scripts": {
+    "start": "electron .",
+    "dev": "LEMMA_DEV_URL=http://localhost:5178 electron .",
+    "dist": "node scripts/sharp-binaries.mjs && electron-builder --mac --win --linux",
+    "dist:here": "electron-builder",
+    "smoke": "node scripts/smoke-packaged.mjs"
+  },
+  "devDependencies": {
+    "electron": "^45.1.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "app.lemma.desktop",
+    "productName": "Lemma",
+    "files": [
+      "main.mjs",
+      "preload.cjs",
+      "llm.mjs",
+      "llm-worker.mjs",
+      "sync.mjs",
+      "security.mjs",
+      "legacy.mjs",
+      "icons/**",
+      "!**/node_modules/@huggingface/transformers/.cache/**",
+      "!**/node_modules/onnxruntime-web/**",
+      "!after-pack.cjs",
+      "!**/node_modules/@img/sharp-wasm32/**"
+    ],
+    "extraResources": [
+      {
+        "from": "../web/dist",
+        "to": "web",
+        "filter": [
+          "**/*",
+          "!extension/**"
+        ]
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "icons/icon-1024.png",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "Lemma listens only while the microphone button is active, to turn speech into calculations."
+      },
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "identity": null,
+      "hardenedRuntime": false,
+      "files": [
+        "!**/node_modules/onnxruntime-node/bin/napi-v*/{linux,win32}/**",
+        "!**/node_modules/onnxruntime-node/bin/napi-v*/darwin/*/libonnxruntime.*.*.*.dylib",
+        "!**/node_modules/@img/*-{linux,win32}-*/**"
+      ]
+    },
+    "win": {
+      "icon": "icons/icon-512.png",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "files": [
+        "!**/node_modules/onnxruntime-node/bin/napi-v*/{darwin,linux}/**",
+        "!**/node_modules/onnxruntime-node/bin/napi-v*/win32/arm64/**",
+        "!**/node_modules/@img/*-{darwin,linux}-*/**"
+      ]
+    },
+    "linux": {
+      "icon": "icons/icon-512.png",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Utility",
+      "executableName": "lemma",
+      "maintainer": "sh1lll",
+      "files": [
+        "!**/node_modules/onnxruntime-node/bin/napi-v*/{darwin,win32}/**",
+        "!**/node_modules/onnxruntime-node/bin/napi-v*/linux/arm64/**",
+        "!**/node_modules/@img/*-{darwin,win32}-*/**"
+      ]
+    },
+    "directories": {
+      "output": "release"
+    },
+    "artifactName": "Lemma-${version}-${os}-${arch}.${ext}",
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false
+    },
+    "electronVersion": "45.1.0",
+    "asarUnpack": [
+      "**/*.node",
+      "**/onnxruntime-node/**",
+      "**/node_modules/@img/**"
+    ],
+    "afterPack": "./after-pack.cjs"
+  },
+  "author": "sh1lll",
+  "license": "MIT",
+  "homepage": "https://lemma.app",
+  "dependencies": {
+    "@huggingface/transformers": "4.3.2"
+  }
+}

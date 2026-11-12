@@ -1,0 +1,26 @@
+{
+  "name": "@lemma/runtime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@lemma/math-core": "*",
+    "@lemma/unit-engine": "*",
+    "@lemma/date-engine": "*",
+    "@lemma/finance-engine": "*",
+    "@lemma/currency-engine": "*",
+    "@lemma/econ-engine": "*",
+    "@lemma/notebook-engine": "*",
+    "@lemma/graph-engine": "*",
+    "@lemma/symbolic-engine": "*",
+    "@lemma/stats-engine": "*",
+    "@lemma/science-engine": "*",
+    "@lemma/applied-engine": "*",
+    "@lemma/productivity-engine": "*",
+    "@lemma/quant-engine": "*",
+    "@lemma/shape-engine": "*",
+    "@lemma/discrete-engine": "*",
+    "@lemma/reference-data": "*"
+  }
+}

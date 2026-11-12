@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lemma</title>
+  </head>
+  <body>
+    <main id="app" class="stack" style="padding: 14px; max-width: 720px; margin: 0 auto">
+      <header class="row" style="justify-content: space-between">
+        <div class="brand"><img src="/icons/icon-32.png" alt="" /><h1>Lemma</h1></div>
+        <div class="row">
+          <button class="btn" id="screen" type="button">Solve what's on screen</button>
+          <button class="btn" id="options" type="button">Settings</button>
+        </div>
+      </header>
+
+      <section id="capture" class="card stack" aria-labelledby="capture-h" hidden>
+        <h2 id="capture-h">From your screen</h2>
+        <p id="capture-status" class="muted" role="status" aria-live="polite" style="margin: 0"></p>
+        <img id="capture-img" alt="The captured region" hidden style="max-width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--line); background: #fff" />
+        <div id="capture-edit" class="stack" hidden style="gap: 8px">
+          <label for="ocr-text">Check the text, fix anything misread, then solve. One problem per line.</label>
+          <textarea id="ocr-text" class="field" rows="3" spellcheck="false" data-testid="ocr-text"></textarea>
+          <div class="row">
+            <button class="btn primary" id="ocr-solve" type="button">Solve with steps</button>
+            <button class="btn" id="ocr-close" type="button">Close</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="calc-h">
+        <h2 id="calc-h" style="margin-bottom: 10px">Calculator</h2>
+        <div id="calc"></div>
+        <button class="btn" id="calc-steps" type="button" hidden style="margin-top: 10px">Steps for this</button>
+      </section>
+
+      <section class="card stack" aria-labelledby="steps-h">
+        <h2 id="steps-h">Step by step</h2>
+        <form id="ask" class="row" style="flex-wrap: nowrap">
+          <label class="sr-only" for="question">Question</label>
+          <input id="question" class="field" type="text" placeholder="e.g. solve 2x + 3 = 11" autocomplete="off" spellcheck="false" data-testid="question" />
+          <button class="btn primary" type="submit">Show steps</button>
+        </form>
+        <div id="steps-out" class="stack" data-testid="steps-out"></div>
+        <div id="lesson-controls" class="row" hidden>
+          <label for="style">Lesson style</label>
+          <select id="style" class="field" style="width: auto"></select>
+          <button class="btn" id="watch" type="button">Watch lesson</button>
+        </div>
+        <div id="lesson"></div>
+      </section>
+    </main>
+    <script type="module" src="./sidepanel/sidepanel.ts"></script>
+  </body>
+</html>

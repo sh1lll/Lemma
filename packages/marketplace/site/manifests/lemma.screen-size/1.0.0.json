@@ -1,0 +1,62 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.screen-size",
+  "name": "16:9 screen size",
+  "description": "Width and height of a 16:9 TV or monitor from its diagonal in inches, in centimetres and inches.",
+  "kind": "formula",
+  "templates": [
+    "screen size {diagonal} inch",
+    "screen size {diagonal} inches",
+    "{diagonal} inch tv size",
+    "{diagonal} inch screen dimensions",
+    "how big is a {diagonal} inch tv"
+  ],
+  "inputs": [
+    {
+      "name": "diagonal",
+      "label": "Diagonal",
+      "unit": "in",
+      "min": 1,
+      "max": 1000
+    }
+  ],
+  "formula": "diagonal * 16 / sqrt(337) * 2.54",
+  "output": {
+    "label": "Width",
+    "unit": "cm",
+    "decimals": 1
+  },
+  "lines": [
+    {
+      "label": "Height",
+      "formula": "diagonal * 9 / sqrt(337) * 2.54",
+      "decimals": 1,
+      "unit": "cm"
+    },
+    {
+      "label": "Width (inches)",
+      "formula": "diagonal * 16 / sqrt(337)",
+      "decimals": 1,
+      "unit": "in"
+    },
+    {
+      "label": "Height (inches)",
+      "formula": "diagonal * 9 / sqrt(337)",
+      "decimals": 1,
+      "unit": "in"
+    }
+  ],
+  "examples": [
+    {
+      "input": "screen size 65 inch",
+      "expect": "143.9"
+    },
+    {
+      "input": "how big is a 27 inch tv",
+      "expect": "59.8"
+    }
+  ]
+}

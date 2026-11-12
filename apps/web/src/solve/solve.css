@@ -1,0 +1,1114 @@
+/* Steps, interpretation, report, share, tutor, photo/draw/worksheet. Loaded with the solve chunk. */
+
+.interp-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.interp-toggle::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.15s;
+}
+.interp-toggle[aria-expanded='true']::after {
+  transform: translateY(1px) rotate(-135deg);
+}
+.interp-toggle:hover {
+  color: var(--ink);
+}
+/* The worked steps replace the one-line "… ⇒ …" summary. */
+/* While "How it was read" is folded, the precision note folds with it. */
+.result:has(.interp-toggle[aria-expanded='false']) .meta .approx {
+  display: none;
+}
+.interp[hidden] {
+  display: none;
+}
+.interp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 2px 0 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.interp-label {
+  font-size: 13px;
+}
+.interp-math {
+  color: var(--ink);
+  overflow-x: auto;
+  max-width: 100%;
+}
+.interp .katex {
+  font-size: 1.05em;
+}
+.assume {
+  flex-basis: 100%;
+  font-size: 13.5px;
+}
+.assume-sep {
+  color: var(--faint);
+}
+.link.assume-alt,
+.interp .alt.assume-alt {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  display: inline;
+  color: var(--accent);
+  font-size: inherit;
+  padding: 0;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  text-underline-offset: 3px;
+}
+
+/* Show steps */
+.steps-slot {
+  margin: 10px 0 2px;
+}
+.steps-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14.5px;
+}
+.steps-toggle:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+.steps-toggle svg,
+.chip.action-chip svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.steps-toggle[aria-expanded='true'] {
+  background: var(--accent-soft, color-mix(in srgb, var(--accent) 12%, var(--surface)));
+}
+.steps-body {
+  margin-top: 12px;
+}
+.steps-wait,
+.steps-none {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 6px 2px;
+}
+.steps-box {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm, 14px);
+  background: var(--surface);
+  padding: 14px 16px 10px;
+}
+.steps-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.steps-method {
+  font-weight: 600;
+  font-size: 14.5px;
+}
+.steps-check {
+  color: var(--accent);
+  font-size: 13px;
+}
+.steps-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 8px;
+}
+.steps-tab {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font: inherit;
+  font-size: 13.5px;
+}
+.steps-tab[aria-selected='true'] {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+.steps-list {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+}
+.step {
+  counter-increment: step;
+  position: relative;
+  padding: 10px 0 10px 34px;
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+.step:first-child {
+  border-top: 0;
+}
+.step::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--line) 55%, transparent);
+}
+.step-reason {
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+.step-warn {
+  color: var(--warn);
+  font-size: 12.5px;
+}
+.step-math {
+  margin-top: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+.step-math .katex-display {
+  margin: 4px 0;
+  text-align: left;
+}
+.step-math .katex-display > .katex {
+  text-align: left;
+}
+.step-ask {
+  font-size: 12.5px;
+  color: var(--muted);
+  padding: 0;
+  margin-top: 2px;
+}
+.steps-table {
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin: 6px 0;
+}
+.steps-table th,
+.steps-table td {
+  padding: 4px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.nl-wrap {
+  margin: 10px 0 4px;
+}
+.number-line {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+}
+.nl-axis {
+  stroke: var(--muted);
+  stroke-width: 1.4;
+}
+.nl-run {
+  stroke: var(--accent);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.nl-dot {
+  fill: var(--accent);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.nl-open {
+  fill: var(--surface);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.nl-label {
+  fill: var(--muted);
+  font-size: 12px;
+  font-family: var(--sans);
+}
+
+/* "What do you want to do?" choices sit in the chip row. */
+.action-prompt {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.action-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.action-form label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.action-input {
+  width: 7.5em;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+.action-title {
+  color: var(--muted);
+  font-size: 13.5px;
+}
+.chip.primary {
+  background: var(--accent-bg);
+  color: var(--accent-ink);
+  border-color: transparent;
+}
+
+/* Share menu */
+.share-menu {
+  position: absolute;
+  z-index: 20;
+  margin-top: 40px;
+  display: grid;
+  min-width: 190px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow, 0 10px 30px -18px rgb(0 0 0 / 0.35));
+}
+.share-item {
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14.5px;
+  padding: 9px 12px;
+  border-radius: 10px;
+}
+.share-item:hover,
+.share-item:focus-visible {
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+
+/* Full report */
+.report {
+  flex-basis: 100%;
+  margin-top: 14px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+.report > summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 14px;
+  padding: 6px 0;
+  list-style: none;
+}
+.report > summary::-webkit-details-marker {
+  display: none;
+}
+.report > summary::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0 10px 2px 3px;
+  border-right: 1.7px solid currentColor;
+  border-bottom: 1.7px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 160ms ease;
+}
+.report[open] > summary::before {
+  transform: rotate(45deg);
+}
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 10px;
+  margin-top: 6px;
+}
+.report-sec {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm, 14px);
+  background: var(--surface);
+  padding: 10px 14px;
+  min-width: 0;
+}
+.report-sec[data-section='Plot'],
+.report-sec[data-section='Alternate forms'] {
+  grid-column: 1 / -1;
+}
+.report-sec h3 {
+  margin: 0 0 4px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+.report-sec .math-s {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+.report-sec .katex-display {
+  margin: 2px 0;
+  text-align: left;
+}
+.report-sec .katex-display > .katex {
+  text-align: left;
+}
+.report-wait {
+  height: 14px;
+  margin: 6px 0 4px;
+  width: 60%;
+  border-radius: 7px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--line) 60%, transparent), color-mix(in srgb, var(--line) 25%, transparent), color-mix(in srgb, var(--line) 60%, transparent));
+  background-size: 200% 100%;
+}
+/* The shimmer is content motion: off under Calm or when that group is switched off. */
+[data-anim~='content'] .report-wait {
+  animation: report-wait 1.4s ease-in-out infinite;
+}
+@keyframes report-wait {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .report-wait {
+    animation: none;
+  }
+}
+.report-items {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 12px;
+  margin: 0;
+  align-items: baseline;
+  font-size: 14px;
+}
+.report-items dt {
+  color: var(--muted);
+  font-size: 13px;
+}
+.report-items dd {
+  margin: 0;
+  min-width: 0;
+  overflow-x: auto;
+}
+.report-roots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+.report-note {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 2px 0 0;
+}
+.report-text {
+  margin: 2px 0;
+  font-size: 15px;
+}
+.report-text.roman {
+  letter-spacing: 0.06em;
+}
+.report-plot {
+  position: relative;
+}
+/* A small plot: the graph view's own stage is sized for the main answer. */
+.report-plot .graph {
+  margin: 0;
+}
+.report-plot .graph-stage {
+  height: 220px;
+}
+.report-plot .graph-sliders,
+.report-plot .graph-summary {
+  display: none;
+}
+
+/* Ask about this */
+.tutor {
+  flex-basis: 100%;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm, 14px);
+  background: var(--surface);
+  padding: 12px 16px 14px;
+}
+.tutor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tutor-head h3 {
+  margin: 0;
+  font-size: 15px;
+}
+.tutor-close {
+  font-size: 20px;
+  line-height: 1;
+}
+.tutor-ctx {
+  margin: 6px 0 10px;
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.tutor-ctx b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.tutor-ask {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+.tutor-input {
+  flex: 1;
+  min-width: 0;
+  resize: vertical;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+}
+.tutor-note {
+  color: var(--muted);
+  font-size: 12.5px;
+  margin: 6px 0;
+}
+.tutor-help {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.tutor-detail {
+  margin-top: 10px;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.tutor-detail p {
+  margin: 6px 0;
+}
+.tutor-steps {
+  margin: 4px 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 4px;
+}
+.tutor-steps .link {
+  text-align: left;
+  font-size: 14px;
+  padding: 0;
+}
+.tutor-step-title {
+  font-weight: 600;
+}
+
+/* Photo, drawing and worksheet sheet */
+.pick {
+  width: min(560px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius, 18px);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0;
+}
+.pick::backdrop {
+  background: rgb(0 0 0 / 0.28);
+}
+.pick-inner {
+  padding: 16px 18px 18px;
+  display: grid;
+  gap: 12px;
+}
+.pick-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pick-head h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+.pick-note {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+}
+.crop-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  touch-action: none;
+  user-select: none;
+  border-radius: 12px;
+  background: var(--bg);
+  overflow: hidden;
+}
+.crop-inner {
+  position: relative;
+  max-width: 100%;
+}
+.crop-wrap canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 46dvh;
+  width: auto;
+  height: auto;
+}
+/* Problems found on the picture: tap one to take just that problem. */
+.crop-marks {
+  position: absolute;
+  inset: 0;
+}
+.crop-mark {
+  position: absolute;
+  padding: 0;
+  border: 1.5px dashed color-mix(in srgb, var(--accent) 70%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.crop-mark:hover,
+.crop-mark:focus-visible {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.crop-mark.on {
+  border-style: solid;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.pick-line-wrap {
+  display: grid;
+  gap: 4px;
+}
+.pick-line-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding-left: 4px;
+  min-height: 1.2em;
+}
+.pick-answer {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--accent);
+}
+.pick-fixes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip.fix {
+  font-size: 12.5px;
+  padding: 3px 9px;
+}
+.crop-box {
+  position: absolute;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.28);
+  pointer-events: none;
+}
+.pick-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.pick-status {
+  color: var(--muted);
+  font-size: 13.5px;
+  min-height: 1.2em;
+}
+.pick-lines {
+  display: grid;
+  gap: 8px;
+}
+.pick-line {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.pick-line input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 15px;
+}
+.ink-pad {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg);
+  touch-action: none;
+  height: 200px;
+}
+.ink-pad canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 14px;
+  cursor: crosshair;
+}
+.ink-hint {
+  position: absolute;
+  inset: auto 0 10px;
+  text-align: center;
+  color: var(--faint);
+  font-size: 13px;
+  pointer-events: none;
+}
+.sheet-list {
+  display: grid;
+  gap: 10px;
+  max-height: 52dvh;
+  overflow: auto;
+}
+.sheet-q {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.sheet-q-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.sheet-q-head input {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+.sheet-num {
+  color: var(--muted);
+  font-size: 13px;
+  min-width: 1.6em;
+}
+.sheet-answer {
+  margin-top: 6px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.sheet-answer.err {
+  color: var(--muted);
+  font-weight: 400;
+}
+.sheet-q details {
+  margin-top: 4px;
+}
+.sheet-q summary {
+  color: var(--muted);
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+@media (max-width: 420px) {
+  .steps-box {
+    padding: 12px 12px 8px;
+  }
+  .step {
+    padding-left: 30px;
+  }
+  .report-grid {
+    grid-template-columns: 1fr;
+  }
+  .tutor-ask {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ---------- Photo solve: its own screen ---------- */
+.snap-view {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--bg);
+  color: var(--ink);
+}
+html.snap-open body {
+  overflow: hidden;
+}
+[data-anim~='panels'] .snap-view {
+  animation: snap-in var(--dur-3, 240ms) var(--ease, ease) both;
+}
+@keyframes snap-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.snap-view.over::after {
+  content: 'Drop to solve';
+  position: absolute;
+  inset: 12px;
+  display: grid;
+  place-items: center;
+  border: 2px dashed var(--accent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  font-size: 18px;
+  pointer-events: none;
+}
+.snap-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: max(12px, env(safe-area-inset-top)) 16px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.snap-head h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+.snap-spacer {
+  flex: 1;
+}
+.snap-back {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: 18px;
+  cursor: pointer;
+}
+.snap-body {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(320px, 46%) 1fr;
+}
+.snap-source {
+  min-height: 0;
+  overflow: auto;
+  padding: 16px;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--surface);
+}
+.snap-stage .crop-wrap canvas {
+  max-height: calc(100dvh - 220px);
+}
+.snap-note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.snap-thumbs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.snap-thumb {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background: var(--surface-2) center / cover no-repeat;
+  cursor: pointer;
+  position: relative;
+}
+.snap-thumb.on {
+  border-color: var(--accent);
+}
+.snap-thumb[data-state='reading']::after,
+.snap-thumb[data-state='waiting']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+}
+.snap-thumb[data-state='failed'] {
+  border-color: var(--warn);
+}
+.snap-empty,
+.snap-doc {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  min-height: 240px;
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
+}
+.snap-doc {
+  font-size: 36px;
+}
+.snap-doc span {
+  font-size: 14px;
+}
+.snap-live {
+  display: grid;
+  gap: 10px;
+}
+.snap-video {
+  width: 100%;
+  border-radius: var(--radius-sm, 12px);
+  background: #000;
+}
+.snap-thread {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+.snap-cards {
+  overflow: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.snap-hint,
+.snap-reading {
+  color: var(--muted);
+  margin: 0;
+}
+.snap-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.snap-group-head {
+  margin: 6px 0 0;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.snap-card {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.snap-card[data-state='check'] {
+  border-color: color-mix(in srgb, var(--warn) 55%, var(--line));
+}
+.snap-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.snap-crop {
+  flex: none;
+  height: 44px;
+  width: auto;
+  max-width: 45%;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.snap-read {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px var(--mono);
+}
+.snap-read:focus {
+  border-color: var(--faint);
+  outline: 0;
+}
+.snap-answer {
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+.snap-answer:empty {
+  display: none;
+}
+.snap-card[data-state='solving'] .snap-answer {
+  font-size: 14px;
+  color: var(--muted);
+}
+.snap-card[data-state='error'] .snap-answer {
+  font-size: 15px;
+  color: var(--warn);
+}
+.snap-flag p {
+  margin: 0 0 8px;
+  color: var(--warn);
+  font-size: 14px;
+}
+.snap-steps summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 14px;
+}
+.snap-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.snap-actions .chip {
+  font-size: 13px;
+}
+.snap-choose p {
+  margin: 0;
+}
+.snap-next {
+  align-self: flex-start;
+}
+.snap-composer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 16px max(14px, env(safe-area-inset-bottom));
+  padding: 6px 6px 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 8px 30px -18px rgb(0 0 0 / 0.3);
+}
+.snap-text {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 16px var(--sans);
+  padding: 10px 4px;
+}
+.snap-mic[aria-pressed='true'] {
+  color: var(--accent);
+}
+
+/* Phones and narrow windows: one column, the photo a strip on top, answers below, the composer at the bottom. */
+@media (max-width: 860px) {
+  .snap-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  .snap-source {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 10px 12px;
+    max-height: 38dvh;
+  }
+  .snap-stage .crop-wrap canvas {
+    max-height: 26dvh;
+  }
+  /* Once there are answers, the photo shrinks to a strip: the answers are what matter now. */
+  .snap-view:has(.snap-card) .snap-stage .crop-wrap canvas {
+    max-height: 16dvh;
+  }
+  .snap-view:has(.snap-card) .snap-note {
+    display: none;
+  }
+  .snap-cards {
+    padding: 12px;
+  }
+  .snap-composer {
+    margin: 0 10px max(10px, env(safe-area-inset-bottom));
+  }
+  .snap-head .chip {
+    padding-inline: 10px;
+  }
+}
+
+/* Worked steps: an equation wider than the card scrolls, and a soft shadow at the edge says so. */
+.step-math {
+  background:
+    linear-gradient(to right, var(--surface, #fff) 30%, transparent) left / 24px 100% no-repeat local,
+    linear-gradient(to left, var(--surface, #fff) 30%, transparent) right / 24px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgb(0 0 0 / 0.16), transparent) left / 10px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgb(0 0 0 / 0.16), transparent) right / 10px 100% no-repeat scroll;
+}
+.snap-guess {
+  padding: 6px 2px;
+  font-size: 1.25em;
+  overflow-x: auto;
+}
+.snap-guess .katex-display {
+  margin: 0;
+  text-align: left;
+}
+.snap-preview {
+  font-family: var(--mono);
+  color: var(--muted);
+}

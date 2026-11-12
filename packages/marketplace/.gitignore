@@ -1,0 +1,3 @@
+# The marketplace signing key. NEVER commit it. See PUBLISHING.md.
+.keys/
+*.pem

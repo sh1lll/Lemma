@@ -1,0 +1,54 @@
+{
+  "format": "lemma-plugin",
+  "version": 1,
+  "author": "Lemma",
+  "release": "1.0.0",
+  "id": "lemma.trip-fuel-metric",
+  "name": "Trip fuel cost (metric)",
+  "description": "Fuel cost of a trip from distance, consumption (L/100 km) and price per litre.",
+  "kind": "formula",
+  "templates": [
+    "fuel cost {distance} km at {consumption} l/100km {price} per litre",
+    "fuel for {distance} km {consumption} l/100km at {price}",
+    "trip fuel {distance} km {consumption} {price}"
+  ],
+  "inputs": [
+    {
+      "name": "distance",
+      "label": "Distance",
+      "unit": "km",
+      "min": 0
+    },
+    {
+      "name": "consumption",
+      "label": "Consumption",
+      "unit": "L/100 km",
+      "min": 0
+    },
+    {
+      "name": "price",
+      "label": "Fuel price",
+      "unit": "per L",
+      "min": 0
+    }
+  ],
+  "formula": "distance * consumption / 100 * price",
+  "output": {
+    "label": "Cost",
+    "decimals": 2
+  },
+  "lines": [
+    {
+      "label": "Fuel used",
+      "formula": "distance * consumption / 100",
+      "decimals": 1,
+      "unit": "L"
+    }
+  ],
+  "examples": [
+    {
+      "input": "fuel cost 420 km at 6.5 l/100km 1.85 per litre",
+      "expect": "50.51"
+    }
+  ]
+}

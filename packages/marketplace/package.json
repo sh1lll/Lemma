@@ -1,0 +1,22 @@
+{
+  "name": "@lemma/marketplace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Signed static index for Lemma extensions: format, verification, and the build/sign CLI.",
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./bundle.json": "./site/bundle.json"
+  },
+  "bin": { "lemma-marketplace": "bin/lemma-marketplace.mjs" },
+  "scripts": {
+    "keygen": "node bin/lemma-marketplace.mjs keygen",
+    "build": "node bin/lemma-marketplace.mjs build",
+    "verify": "node bin/lemma-marketplace.mjs verify"
+  },
+  "dependencies": {
+    "@lemma/math-core": "*",
+    "@lemma/plugin-engine": "*"
+  }
+}
