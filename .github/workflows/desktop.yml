@@ -1,11 +1,16 @@
 # Builds each desktop app on its own kind of machine, so npm installs that machine's native files (sharp,
 # ONNX Runtime) and no cross-platform fetch is needed. Then it starts the built app and checks the calculator
 # and the built-in AI actually answer.
+#
+# Releasing: bump "version" in apps/desktop/package.json (the installer names use it), push, then publish a release on GitHub (for example `gh release create v1.1.0 --generate-notes`). This
+# workflow then builds, self-tests and attaches the four installers to it. The release stays authored by you.
 name: desktop
 on:
   push:
     branches: [main]
   pull_request:
+  release:
+    types: [published]
   workflow_dispatch:
 
 jobs:
@@ -15,13 +20,14 @@ jobs:
       matrix:
         include:
           - { os: macos-latest, args: --arm64 }
-          - { os: macos-13, args: --x64 }
+          - { os: macos-15-intel, args: --x64 }
           - { os: windows-latest, args: '' }
           - { os: ubuntu-latest, args: '' }
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with: { node-version: 22, cache: npm }
       - run: npm ci
       - run: npm run build
@@ -32,7 +38,7 @@ jobs:
       - name: Self-test the built app (virtual display)
         if: runner.os == 'Linux'
         run: xvfb-run -a npm run smoke -w @lemma/desktop -- --ai
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: lemma-${{ matrix.os }}
           path: |
@@ -40,3 +46,16 @@ jobs:
             apps/desktop/release/*.exe
             apps/desktop/release/*.AppImage
           if-no-files-found: error
+
+  attach:
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v5
+        with: { path: installers, merge-multiple: true }
+      - run: gh release upload "${{ github.event.release.tag_name }}" installers/* --clobber --repo "${{ github.repository }}"
+        env:
+          GH_TOKEN: ${{ github.token }}

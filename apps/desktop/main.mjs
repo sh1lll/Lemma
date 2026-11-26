@@ -289,17 +289,22 @@ async function runSmoke() {
   // buffered and lost if the process is killed.
   const { appendFileSync } = await import('node:fs');
   const log = (line) => (process.env.LEMMA_SMOKE_OUT ? appendFileSync(process.env.LEMMA_SMOKE_OUT, line + '\n') : console.log(line));
-  const probe = `new Promise((resolve) => {
+  // Retype until the answer shows (up to 15 s): on a slow machine the page may not be listening yet, or the
+  // answer takes longer than a fixed wait (CI's Mac showed "0" after 300 ms).
+  const probe = `(async () => {
     const i = document.getElementById('input');
-    i.value = '20 percent of 450 plus 30'; i.dispatchEvent(new Event('input'));
-    setTimeout(() => resolve({
+    for (let k = 0; k < 60 && !document.getElementById('value').innerText.includes('120'); k++) {
+      i.value = '20 percent of 450 plus 30'; i.dispatchEvent(new Event('input'));
+      await new Promise((r) => setTimeout(r, 250));
+    }
+    return {
       value: document.getElementById('value').innerText,
       overlay: document.documentElement.classList.contains('overlay'),
       bridge: typeof window.lemmaDesktop,
       speech: 'webkitSpeechRecognition' in window,
       worklet: typeof AudioWorkletNode,
-    }), 300);
-  })`;
+    };
+  })()`;
   // Anything that swaps a window's page mid-test, so a failure says which window and why.
   for (const [name, win] of [['main', mainWin], ['overlay', overlay]]) {
     win.webContents.on('did-start-navigation', (d) => d.isMainFrame && log(`NAV ${name} ${d.url} by=${d.initiator?.url ?? 'shell'}`));
