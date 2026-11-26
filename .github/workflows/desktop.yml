@@ -30,6 +30,9 @@ jobs:
       - uses: actions/setup-node@v5
         with: { node-version: 22, cache: npm }
       - run: npm ci
+        env:
+          # Linux would download the CUDA (GPU) build of ONNX Runtime from nuget.org, which Lemma doesn't use; that fetch timed out on CI.
+          ONNXRUNTIME_NODE_INSTALL: ${{ matrix.os == 'ubuntu-latest' && 'skip' || '' }}
       - run: npm run build
       - run: npm run dist:here -w @lemma/desktop -- ${{ matrix.args }} --publish never
       - name: Self-test the built app
